@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using Application.IServices;
 using Application.Models;
+using Application.Models.RequestModels.RenovationWork;
 using Application.Models.RequestModels.Repair;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,24 @@ public class RepairController: ControllerBase
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
         var operationRes = await _repairsService.AddRepairAsync(model);
+        
+        return Ok(operationRes);
+    }
+    
+    [HttpGet("GetRenovationWorks")]
+    public async Task<ActionResult<List<RepairDTO>>> GetRenovationWorks([FromQuery] RenovationWorkFilterModel model)
+    {
+        var renovationWorks = await _repairsService.GetRenovationWorksAsync(model);
+        
+        return Ok(renovationWorks);
+    }
+
+    [HttpPost("AddRenovationWork")]
+    public async Task<ActionResult<OperationResult>> AddRenovationWork([FromQuery] AddRenovationWorkModel model)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        var operationRes = await _repairsService.AddRenovationWorkAsync(model);
         
         return Ok(operationRes);
     }

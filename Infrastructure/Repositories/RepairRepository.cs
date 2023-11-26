@@ -62,8 +62,32 @@ public class RepairRepository: IRepairsRepository
             })
             .ToListAsync();
     }
-    
-    
-    
-    
+
+    public async Task<OperationResult> AddRenovationWorkAsync(RenovationWork newRenovationWork)
+    {
+        await _ctx.RenovationWorks.AddAsync(newRenovationWork);
+        
+        var savedCount = await _ctx.SaveChangesAsync();
+        return savedCount > 0 
+            ? new OperationResult{ IsSuccess = true } 
+            : new OperationResult{IsSuccess = false, ErrorMessage = "Не удалось сохранить данные. Пожалуйста, перезагрузите страницу и попробуйте снова."};
+
+    }
+
+    public async Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(string? name, string? description, decimal? price)
+    {
+        return await _ctx.RenovationWorks.Where(rw =>
+                (string.IsNullOrEmpty(name) || rw.Name.Contains(name))
+                && (string.IsNullOrEmpty(description) || rw.Description.Contains(description)
+                    && (price == null || rw.Price == price)))
+            .Select(i => new RenovationWorkDTO
+            {
+                Id = i.Id,
+                Name = i.Name,
+                Description = i.Description,
+                Price = i.Price,
+                IsDeleted = i.IsDeleted
+            })
+            .ToListAsync();
+    }
 }

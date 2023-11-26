@@ -2,6 +2,7 @@
 using Application.IRepositories;
 using Application.IServices;
 using Application.Models;
+using Application.Models.RequestModels.RenovationWork;
 using Application.Models.RequestModels.Repair;
 using Domain.Entities;
 
@@ -37,5 +38,26 @@ public class RepairService: IRepairsService
     {
         return await _repairsRepository.GetRepairsAsync(model.ProvisionalDateOfReceipt, model.InstrumentName, model.IsCase,
             model.Description, model.Price, model.ClientPhone, model.MasterId, model.EmployeeId, model.RenovationWorkId);
+    }
+
+    public async Task<OperationResult> AddRenovationWorkAsync(AddRenovationWorkModel model)
+    {
+        RenovationWork newRenovationWork;
+
+        try
+        {
+            newRenovationWork = RenovationWork.Create(model.Name, model.Description, model.Price);
+        }
+        catch (Exception e)
+        {
+            return new OperationResult { IsSuccess = false, ErrorMessage = $"Не удалось создать прайс. Ошибка: {e.Message}" };
+        }
+
+        return await _repairsRepository.AddRenovationWorkAsync(newRenovationWork);
+    }
+
+    public async Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(RenovationWorkFilterModel model)
+    {
+        return await _repairsRepository.GetRenovationWorksAsync(model.Name, model.Description, model.Price);
     }
 }
