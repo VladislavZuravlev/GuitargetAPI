@@ -7,5 +7,5 @@ namespace Application.IServices;
 public interface IEmployeeService
 {
     Task<OperationResult> AddAsync(AddEmployeeModel model);
-    Task<List<EmployeeDTO>> GetAsync(EmployeeFilterModel model);
+    Task<List<EmployeeDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
 }

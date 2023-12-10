@@ -7,5 +7,5 @@ namespace Application.IRepositories;
 public interface IEmployeeRepository
 {
     Task<OperationResult> AddAsync(Employee newEmployee);
-    Task<List<EmployeeDTO>> GetAsync(string name, string phone, bool isDisabled);
+    Task<List<EmployeeDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null);
 }

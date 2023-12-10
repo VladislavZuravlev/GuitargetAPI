@@ -1,4 +1,6 @@
-﻿namespace Application.DTO;
+﻿using Domain.Entities;
+
+namespace Application.DTO;
 
 public class MasterDTO
 {
@@ -7,4 +9,5 @@ public class MasterDTO
     public decimal Percent { get; set; }
     public bool IsDisabled { get; set; }
     public int RepairsCount { get; set; }
+    public IEnumerable<RepairDTO>? Repairs { get; set; }
 }

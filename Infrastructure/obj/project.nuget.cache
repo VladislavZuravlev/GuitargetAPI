@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UendHfqnx9zvnlLnAK8YePGzlcyPmEeJ84JBlJFwxnC3vvaVI5ZNnvb49xxYzkBEMPYWRU9MX/t79tsGDr7iBw==",
+  "dgSpecHash": "9xfqi9AP4KLYtT0bG7Dc2GsK424h11Y4i/nqfIRk0gtXbBiSmbKI0KtD9spWEq0mFJI1bhW5LCHUpAX7TZ6XZg==",
   "success": true,
   "projectFilePath": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\valdi\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
+    "C:\\Users\\valdi\\.nuget\\packages\\system.linq.dynamic.core\\1.3.7\\system.linq.dynamic.core.1.3.7.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],

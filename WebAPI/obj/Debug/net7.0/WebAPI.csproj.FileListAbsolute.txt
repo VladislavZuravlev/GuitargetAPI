@@ -47,3 +47,4 @@ C:\Users\valdi\RiderProjects\Guitarget\WebAPI\obj\Debug\net7.0\refint\WebAPI.dll
 C:\Users\valdi\RiderProjects\Guitarget\WebAPI\obj\Debug\net7.0\WebAPI.pdb
 C:\Users\valdi\RiderProjects\Guitarget\WebAPI\obj\Debug\net7.0\WebAPI.genruntimeconfig.cache
 C:\Users\valdi\RiderProjects\Guitarget\WebAPI\obj\Debug\net7.0\ref\WebAPI.dll
+C:\Users\valdi\RiderProjects\Guitarget\WebAPI\bin\Debug\net7.0\System.Linq.Dynamic.Core.dll

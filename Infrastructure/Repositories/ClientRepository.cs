@@ -3,19 +3,16 @@ using Application.IRepositories;
 using Application.Models;
 using Domain.Entities;
 using Infrastructure.Contexts;
+using Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class ClientRepository: IClientRepository
+public class ClientRepository: BaseRepository<Client>, IClientRepository
 {
-    private readonly PostgresDbContext _ctx;
-
-    public ClientRepository(PostgresDbContext postgresDbContext)
+    public ClientRepository(PostgresDbContext ctx) : base(ctx)
     {
-        _ctx = postgresDbContext;
     }
-    
     
     public async Task<OperationResult> AddAsync(Client newClient)
     {
@@ -23,43 +20,67 @@ public class ClientRepository: IClientRepository
 
         var savedCount = await _ctx.SaveChangesAsync();
         
-        
         return savedCount > 0 
             ? new OperationResult{ IsSuccess = true } 
             : new OperationResult{IsSuccess = false, ErrorMessage = "Не удалось сохранить данные. Пожалуйста, перезагрузите страницу и попробуйте снова."};
         
     }
 
-    public async Task<List<ClientDTO>> GetAsync(string name, string phone, DateTime? periodStartDate, DateTime? periodEndDate)
+    public async Task<List<ClientDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
     {
-        return await _ctx.Clients.Include(c => c.Repairs)
-                                                .Where(c => (string.IsNullOrEmpty(name) || c.Name.Contains(name))
-                                                    && (string.IsNullOrEmpty(phone) || c.PhoneNumber == phone)
-                                                    && (periodStartDate == null || c.CreateDateTime.Date >= periodStartDate.Value.Date)
-                                                    && (periodEndDate == null || c.CreateDateTime.Date <= periodEndDate.Value.Date))
-                                                .Select(i => new ClientDTO
-                                                {
-                                                    Id = i.Id,
-                                                    PhoneNumber = i.PhoneNumber,
-                                                    Name = i.Name,
-                                                    CreateDateTime = i.CreateDateTime,
-                                                    Repairs = i.Repairs.Select(s => new RepairDTO
-                                                    {
-                                                        Id = s.Id,
-                                                        CreateDateTime = s.CreateDateTime,
-                                                        ProvisionalDateOfReceipt = s.ProvisionalDateOfReceipt,
-                                                        DateOfReceipt = s.DateOfReceipt,
-                                                        InstrumentName = s.InstrumentName,
-                                                        IsCase = s.IsCase,
-                                                        Description = s.Description,
-                                                        Price = s.Price,
-                                                        StatusId = s.StatusId,
-                                                        IsDeleted = s.IsDeleted,
-                                                        MasterId = s.MasterId,
-                                                        EmployeeId = s.EmployeeId,
-                                                        RenovationWorkId = s.RenovationWorkId
-                                                    }).ToList()
-                                                })
-                                                .ToListAsync();
+        var clients = await base.GetEntityAsync(filters, includeProperties, orderCollection);
+
+        return clients
+            .Select(i => new ClientDTO
+            {
+                Id = i.Id,
+                PhoneNumber = i.PhoneNumber,
+                Name = i.Name,
+                CreateDateTime = i.CreateDateTime,
+                Repairs = i.Repairs?.Select(r => new RepairDTO
+                {
+                    Id = r.Id,
+                    CreateDateTime = r.CreateDateTime,
+                    ProvisionalDateOfReceipt = r.ProvisionalDateOfReceipt,
+                    DateOfReceipt = r.DateOfReceipt,
+                    InstrumentName = r.InstrumentName,
+                    IsCase = r.IsCase,
+                    Description = r.Description,
+                    Price = r.Price,
+                    StatusId = r.StatusId,
+                    IsDeleted = r.IsDeleted,
+                    MasterId = r.MasterId,
+                    EmployeeId = r.EmployeeId,
+                    RenovationWorkId = r.RenovationWorkId,
+                    Master = new MasterDTO
+                    {
+                        EmployeeId = r.Master.EmployeeId,
+                        Employee = new EmployeeDTO
+                        {
+                            Id = r.Employee.Id,
+                            PhoneNumber = r.Employee.PhoneNumber,
+                            Name = r.Employee.Name,
+                            IsDisabled = r.Employee.IsDisabled
+                        },
+                        Percent = r.Master.Percent,
+                        IsDisabled = r.Master.IsDisabled
+                    },
+                    Employee = new EmployeeDTO
+                    {
+                        Id = r.Employee.Id,
+                        PhoneNumber = r.Employee.PhoneNumber,
+                        Name = r.Employee.Name,
+                        IsDisabled = r.Employee.IsDisabled
+                    },
+                    RenovationWork = new RenovationWorkDTO
+                    {
+                        Id = r.RenovationWork.Id,
+                        Name = r.RenovationWork.Name,
+                        Description = r.RenovationWork.Description,
+                        Price = r.RenovationWork.Price,
+                        IsDeleted = r.RenovationWork.IsDeleted
+                    }
+                })
+            }).ToList();
     }
 }

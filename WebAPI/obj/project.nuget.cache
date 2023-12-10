@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "L8R8zifO9cQ9egXo9RZt8KrR2yWqnUWERxgr2+gMX0fZjuWsvBQkPluMlaoNRdjVemhKWGTAiuzQSwjhYsUJ3Q==",
+  "dgSpecHash": "8jKD09bqR2QAyjJ0O/duBpVwvWgDhj81RJ74thsRd4XvuVyDd8aUZlNXaMU4kyUpSQpweKWVS9chQgUEpQb5xw==",
   "success": true,
   "projectFilePath": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\WebAPI\\WebAPI.csproj",
   "expectedPackageFiles": [
@@ -32,6 +32,7 @@
     "C:\\Users\\valdi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
+    "C:\\Users\\valdi\\.nuget\\packages\\system.linq.dynamic.core\\1.3.7\\system.linq.dynamic.core.1.3.7.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],

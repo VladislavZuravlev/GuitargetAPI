@@ -30,9 +30,9 @@ public class ClientController: ControllerBase
     }
 
     [HttpGet("Get")]
-    public async Task<ActionResult<List<ClientDTO>>> Get([FromQuery] ClientFilterModel model)
+    public async Task<ActionResult<List<ClientDTO>>> Get()
     {
-        var clients = await _clientService.GetAsync(model);
+        var clients = await _clientService.GetAsync();
         
         return Ok(clients);
     }

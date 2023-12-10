@@ -7,5 +7,5 @@ namespace Application.IServices;
 public interface IMasterService
 {
     Task<OperationResult> AddAsync(AddMasterModel model);
-    Task<List<MasterDTO>> GetAsync(MasterFilterModel model);
+    Task<List<MasterDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
 }

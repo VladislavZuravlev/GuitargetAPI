@@ -44,14 +44,18 @@ public class Employee
     {
         const int requiredPhoneLength = 18;
         
-        if (string.IsNullOrEmpty(phone) || phone.Length != requiredPhoneLength) return;
+        if (string.IsNullOrEmpty(phone) || phone.Length != requiredPhoneLength) 
+            throw new ArgumentException("Телфефон должен быть указан в формате \"+7 (000) 000-00-00\".");
         
         PhoneNumber = phone;
     }
 
     private void SetName(string name)
     {
-        if (string.IsNullOrEmpty(name)) return;
+        const int nameMaxLength = 300;
+        
+        if (string.IsNullOrEmpty(name) || name.Length > nameMaxLength)
+            throw new ArgumentException($"Имя не может быть пустым и содержать более {nameMaxLength} символов.");
 
         Name = name;
     }

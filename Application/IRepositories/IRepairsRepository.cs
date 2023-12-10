@@ -7,8 +7,8 @@ namespace Application.IRepositories;
 public interface IRepairsRepository
 {
     Task<OperationResult> AddRepairAsync(Repair newRepair);
-    Task<List<RepairDTO>> GetRepairsAsync(DateTime? provisionalDateOfReceipt, string? instrumentName, bool isCase, string? description, decimal? price, string? clientPhone, int? masterId, int? employeeId, int? renovationWorkId);
+    Task<List<RepairDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null);
 
     Task<OperationResult> AddRenovationWorkAsync(RenovationWork newRenovationWork);
-    Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(string? name, string? description, decimal? price);
+    Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null);
 }

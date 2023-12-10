@@ -32,8 +32,10 @@ public class ClientService: IClientService
         return await _clientRepository.AddAsync(newClient);
     }
 
-    public async Task<List<ClientDTO>> GetAsync(ClientFilterModel model)
+    public async Task<List<ClientDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
-        return await _clientRepository.GetAsync(model.Name, model.PhoneNumber, model.PeriodStartDate, model.PeriodEndDate);
+        var test = await _clientRepository.GetAsync(filters);
+        
+        return test;
     }
 }

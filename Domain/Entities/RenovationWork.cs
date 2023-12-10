@@ -44,21 +44,29 @@ public class RenovationWork
     
     private void SetName(string name)
     {
-        if (string.IsNullOrEmpty(name) || name.Length < 3 || name.Length > 700) return;
+        const int nameMaxLength = 700;
+        const int nameMinLength = 3;
+
+        if (string.IsNullOrEmpty(name) || name.Length < nameMinLength || name.Length > nameMaxLength)
+            throw new ArgumentException($"Название инструмента должно быть от {nameMinLength} до {nameMaxLength}.");
 
         Name = name;
     }
     
     private void SetDescription(string description)
     {
-        if (string.IsNullOrEmpty(description) || description.Length > 2000) return;
+        const int descriptionMaxLength = 2000;
+
+        if (description.Length > descriptionMaxLength)
+            throw new ArgumentException($"Комментарий не может быть больше {descriptionMaxLength}.");
 
         Description = description;
     }
     
     private void SetPrice(decimal price)
     {
-        if (price <= 0) return;
+        if (price <= 0)
+            throw new ArgumentException($"Цена не может быть меньше 0.");
 
         Price = price;
     }

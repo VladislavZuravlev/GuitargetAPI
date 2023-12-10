@@ -19,9 +19,9 @@ public class EmployeeController: ControllerBase
 
 
     [HttpGet("Get")]
-    public async Task<ActionResult<List<OperationResult>>> Get([FromQuery]EmployeeFilterModel model)
+    public async Task<ActionResult<List<OperationResult>>> Get()
     {
-        var employees = await _employeeService.GetAsync(model);
+        var employees = await _employeeService.GetAsync();
          
         return Ok(employees);
     }

@@ -8,8 +8,8 @@ namespace Application.IServices;
 public interface IRepairsService
 {
     Task<OperationResult> AddRepairAsync(AddRepairModel model);
-    Task<List<RepairDTO>> GetRepairsAsync(RepairFilterModel model);
+    Task<List<RepairDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
     
     Task<OperationResult> AddRenovationWorkAsync(AddRenovationWorkModel model);
-    Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(RenovationWorkFilterModel model);
+    Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
 }

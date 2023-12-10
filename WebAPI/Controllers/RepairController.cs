@@ -20,9 +20,9 @@ public class RepairController: ControllerBase
     
     
     [HttpGet("GetRepairs")]
-    public async Task<ActionResult<List<RepairDTO>>> GetRepairs([FromQuery] RepairFilterModel model)
+    public async Task<ActionResult<List<RepairDTO>>> GetRepairs()
     {
-        var repairs = await _repairsService.GetRepairsAsync(model);
+        var repairs = await _repairsService.GetRepairsAsync();
         
         return Ok(repairs);
     }
@@ -38,9 +38,9 @@ public class RepairController: ControllerBase
     }
     
     [HttpGet("GetRenovationWorks")]
-    public async Task<ActionResult<List<RepairDTO>>> GetRenovationWorks([FromQuery] RenovationWorkFilterModel model)
+    public async Task<ActionResult<List<RepairDTO>>> GetRenovationWorks()
     {
-        var renovationWorks = await _repairsService.GetRenovationWorksAsync(model);
+        var renovationWorks = await _repairsService.GetRenovationWorksAsync();
         
         return Ok(renovationWorks);
     }

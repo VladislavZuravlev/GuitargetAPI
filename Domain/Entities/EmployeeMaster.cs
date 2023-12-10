@@ -35,7 +35,7 @@ public class EmployeeMaster
 
     public static EmployeeMaster Create(int employeeId, decimal percent)
     {
-        if (employeeId <= 0) throw new ArgumentException();
+        if (employeeId <= 0) throw new ArgumentException("Сотрудник не найден.");
         
         return new EmployeeMaster(employeeId, percent);
     }
@@ -43,7 +43,8 @@ public class EmployeeMaster
 
     private void SetPercent(decimal percent)
     {
-        if (percent <= 0) return;
+        if (percent <= 0)
+            throw new ArgumentException("Процент не может быть меньше 0");
 
         Percent = percent;
 

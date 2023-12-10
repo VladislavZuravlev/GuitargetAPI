@@ -4,7 +4,7 @@ public class EmployeeDTO
 {
     public int Id { get; init; }
     public string PhoneNumber { get; set; }
-    public string Name { get; private set; }
+    public string Name { get; set; }
     public bool IsDisabled { get; set; }
-    public List<RepairDTO> Repairs { get; set; }
+    public IEnumerable<RepairDTO>? Repairs { get; set; }
 }

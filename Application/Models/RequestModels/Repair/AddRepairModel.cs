@@ -13,9 +13,9 @@ public class AddRepairModel
     public string InstrumentName { get; set; }
     public bool IsCase { get; set; }
     
-    [Required]
+    
     [MaxLength(1000)]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
     
     [Required]
     public decimal Price { get; set; }

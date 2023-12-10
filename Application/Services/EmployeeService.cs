@@ -35,8 +35,8 @@ public class EmployeeService: IEmployeeService
         return await _employeeRepository.AddAsync(newEmployee);
     }
 
-    public async Task<List<EmployeeDTO>> GetAsync(EmployeeFilterModel model)
+    public async Task<List<EmployeeDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
-        return await _employeeRepository.GetAsync(model.Name, model.PhoneNumber, model.IsDisabled);
+        return await _employeeRepository.GetAsync(filters);
     }
 }

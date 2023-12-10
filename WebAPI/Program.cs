@@ -3,7 +3,6 @@ using Application.IServices;
 using Application.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +15,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+
 builder.Services.AddScoped<IRepairsService, RepairService>();
 builder.Services.AddScoped<IRepairsRepository, RepairRepository>();
+
 builder.Services.AddScoped<IMasterService, MasterService>();
-builder.Services.AddScoped<IMasterRepository, IMasterRepository>();
+builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 

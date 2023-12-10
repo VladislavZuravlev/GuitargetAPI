@@ -16,14 +16,14 @@ public class RepairDTO
     public int MasterId { get; set; }
     public int EmployeeId { get; init; }
     public int RenovationWorkId { get; set; }
-    public string ClientName { get; set; }
-    public string ClientPhone { get; set; }
-    public string MasterName { get; set; }
-    public string EmployeeName { get; set; }
+    // public string ClientName { get; set; }
+    // public string ClientPhone { get; set; }
+    // public string MasterName { get; set; }
+    // public string EmployeeName { get; set; }
     
-    // public ClientDTO Client { get; set; }
-    // public MasterDTO Master { get; set; }
-    // public EmployeeDTO Employee { get; set; }
-    // public RenovationWorkDTO RenovationWork { get; set; }
+    public ClientDTO Client { get; set; }
+    public MasterDTO Master { get; set; }
+    public EmployeeDTO Employee { get; set; }
+    public RenovationWorkDTO RenovationWork { get; set; }
 
 }

@@ -7,5 +7,5 @@ namespace Application.IServices;
 public interface IClientService
 {
     Task<OperationResult> AddAsync(AddClientModel model);
-    Task<List<ClientDTO>> GetAsync(ClientFilterModel model);
+    Task<List<ClientDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
 }

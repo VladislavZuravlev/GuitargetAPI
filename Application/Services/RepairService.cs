@@ -24,7 +24,7 @@ public class RepairService: IRepairsService
         Repair newRepair;
         try
         {
-            newRepair = Repair.Create(model.ClientId, model.MasterId, model.EmployeeId, model.ProvisionalDateOfReceipt, model.InstrumentName, model.IsCase, model.Description, model.Price);
+            newRepair = Repair.Create(model.ClientId, model.MasterId, model.EmployeeId, model.ProvisionalDateOfReceipt, model.InstrumentName, model.IsCase, model.Description, model.Price, model.RenovationWorkId);
         }
         catch (Exception e)
         {
@@ -34,10 +34,9 @@ public class RepairService: IRepairsService
         return await _repairsRepository.AddRepairAsync(newRepair);
     }
 
-    public async Task<List<RepairDTO>> GetRepairsAsync(RepairFilterModel model)
+    public async Task<List<RepairDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
-        return await _repairsRepository.GetRepairsAsync(model.ProvisionalDateOfReceipt, model.InstrumentName, model.IsCase,
-            model.Description, model.Price, model.ClientPhone, model.MasterId, model.EmployeeId, model.RenovationWorkId);
+        return await _repairsRepository.GetRepairsAsync(filters);
     }
 
     public async Task<OperationResult> AddRenovationWorkAsync(AddRenovationWorkModel model)
@@ -56,8 +55,8 @@ public class RepairService: IRepairsService
         return await _repairsRepository.AddRenovationWorkAsync(newRenovationWork);
     }
 
-    public async Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(RenovationWorkFilterModel model)
+    public async Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
-        return await _repairsRepository.GetRenovationWorksAsync(model.Name, model.Description, model.Price);
+        return await _repairsRepository.GetRenovationWorksAsync(filters);
     }
 }

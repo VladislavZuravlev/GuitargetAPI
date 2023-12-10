@@ -33,8 +33,8 @@ public class MasterService: IMasterService
         return await _masterRepository.AddAsync(newMaster);
     }
 
-    public async Task<List<MasterDTO>> GetAsync(MasterFilterModel model)
+    public async Task<List<MasterDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
-        return await _masterRepository.GetAsync(model.Name, model.PhoneNumber, model.IsDisabled);
+        return await _masterRepository.GetAsync(filters);
     }
 }
