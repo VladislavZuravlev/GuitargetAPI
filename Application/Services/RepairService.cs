@@ -38,25 +38,4 @@ public class RepairService: IRepairsService
     {
         return await _repairsRepository.GetRepairsAsync(filters);
     }
-
-    public async Task<OperationResult> AddRenovationWorkAsync(AddRenovationWorkModel model)
-    {
-        RenovationWork newRenovationWork;
-
-        try
-        {
-            newRenovationWork = RenovationWork.Create(model.Name, model.Description, model.Price);
-        }
-        catch (Exception e)
-        {
-            return new OperationResult { IsSuccess = false, ErrorMessage = $"Не удалось создать прайс. Ошибка: {e.Message}" };
-        }
-
-        return await _repairsRepository.AddRenovationWorkAsync(newRenovationWork);
-    }
-
-    public async Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
-    {
-        return await _repairsRepository.GetRenovationWorksAsync(filters);
-    }
 }

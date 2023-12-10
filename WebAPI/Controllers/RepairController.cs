@@ -36,22 +36,4 @@ public class RepairController: ControllerBase
         
         return Ok(operationRes);
     }
-    
-    [HttpGet("GetRenovationWorks")]
-    public async Task<ActionResult<List<RepairDTO>>> GetRenovationWorks()
-    {
-        var renovationWorks = await _repairsService.GetRenovationWorksAsync();
-        
-        return Ok(renovationWorks);
-    }
-
-    [HttpPost("AddRenovationWork")]
-    public async Task<ActionResult<OperationResult>> AddRenovationWork([FromQuery] AddRenovationWorkModel model)
-    {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
-
-        var operationRes = await _repairsService.AddRenovationWorkAsync(model);
-        
-        return Ok(operationRes);
-    }
 }

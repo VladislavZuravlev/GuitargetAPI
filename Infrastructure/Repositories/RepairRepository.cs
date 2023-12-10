@@ -7,13 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class RepairRepository: IRepairsRepository
+public class RepairRepository: BaseRepository<Repair>, IRepairsRepository
 {
-    private readonly PostgresDbContext _ctx;
-
-    public RepairRepository(PostgresDbContext ctx)
+    public RepairRepository(PostgresDbContext ctx): base(ctx)
     {
-        _ctx = ctx;
     }
 
 
@@ -30,8 +27,10 @@ public class RepairRepository: IRepairsRepository
 
     public async Task<List<RepairDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
     {
-        return await _ctx.Repairs
-            .Select(r => new RepairDTO
+        var repairs = await base.GetEntityAsync(filters, includeProperties, orderCollection);
+        
+        
+        return repairs.Select(r => new RepairDTO
             {
                 Id = r.Id,
                 CreateDateTime = r.CreateDateTime,
@@ -83,16 +82,6 @@ public class RepairRepository: IRepairsRepository
                     IsDisabled = r.Employee.IsDisabled
                 }
             })
-            .ToListAsync();
-    }
-
-    public async Task<OperationResult> AddRenovationWorkAsync(RenovationWork newRenovationWork)
-    {
-        return new OperationResult{IsSuccess = true};
-    }
-
-    public async Task<List<RenovationWorkDTO>> GetRenovationWorksAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
-    {
-        return new List<RenovationWorkDTO>();
+            .ToList();
     }
 }
