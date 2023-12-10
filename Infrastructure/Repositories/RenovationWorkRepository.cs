@@ -14,10 +14,9 @@ public class RenovationWorkRepository: BaseRepository<RenovationWork>, IRenovati
     
     public async Task<OperationResult> AddAsync(RenovationWork newRenovationWork)
     {
-        await _ctx.RenovationWorks.AddAsync(newRenovationWork);
+        var isSuccess = await base.InsertEntityAsync(newRenovationWork);
         
-        var savedCount = await _ctx.SaveChangesAsync();
-        return savedCount > 0 
+        return isSuccess
             ? new OperationResult{ IsSuccess = true } 
             : new OperationResult{IsSuccess = false, ErrorMessage = "Не удалось сохранить данные. Пожалуйста, перезагрузите страницу и попробуйте снова."};
 

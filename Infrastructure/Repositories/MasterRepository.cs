@@ -17,13 +17,12 @@ public class MasterRepository: BaseRepository<EmployeeMaster>, IMasterRepository
 
     public async Task<OperationResult> AddAsync(EmployeeMaster newMaster)
     {
-        await _ctx.Masters.AddAsync(newMaster);
+        var isSuccess = await base.InsertEntityAsync(newMaster);
         
-        var savedCount = await _ctx.SaveChangesAsync();
-        return savedCount > 0 
+        return isSuccess
             ? new OperationResult{ IsSuccess = true } 
             : new OperationResult{IsSuccess = false, ErrorMessage = "Не удалось сохранить данные. Пожалуйста, перезагрузите страницу и попробуйте снова."};
-            
+   
     }
 
     public async Task<List<MasterDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)

@@ -40,4 +40,22 @@ where TEntity: class
 
         return await query.ToListAsync();
     }
+    
+    public async Task<bool> InsertEntityAsync(TEntity entity)
+    {
+        // Проверить добавление с детьми.
+        int savedCount;
+
+        try
+        {
+            await _dbSet.AddAsync(entity);
+            savedCount = await _ctx.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        
+        return savedCount > 0;
+    }
 }

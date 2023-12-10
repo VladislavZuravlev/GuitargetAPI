@@ -16,14 +16,12 @@ public class ClientRepository: BaseRepository<Client>, IClientRepository
     
     public async Task<OperationResult> AddAsync(Client newClient)
     {
-        await _ctx.Clients.AddAsync(newClient);
-
-        var savedCount = await _ctx.SaveChangesAsync();
+        var isSuccess = await base.InsertEntityAsync(newClient);
         
-        return savedCount > 0 
+        return isSuccess
             ? new OperationResult{ IsSuccess = true } 
             : new OperationResult{IsSuccess = false, ErrorMessage = "Не удалось сохранить данные. Пожалуйста, перезагрузите страницу и попробуйте снова."};
-        
+
     }
 
     public async Task<List<ClientDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)

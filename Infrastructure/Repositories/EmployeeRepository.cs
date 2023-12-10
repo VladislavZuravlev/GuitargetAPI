@@ -22,11 +22,9 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
 
     public async Task<OperationResult> AddAsync(Employee newEmployee)
     {
-        await _ctx.Employees.AddAsync(newEmployee);
-
-        var savedCount = await _ctx.SaveChangesAsync();
+        var isSuccess = await base.InsertEntityAsync(newEmployee);
         
-        return savedCount > 0 
+        return isSuccess
             ? new OperationResult{ IsSuccess = true } 
             : new OperationResult{IsSuccess = false, ErrorMessage = "Не удалось сохранить данные. Пожалуйста, перезагрузите страницу и попробуйте снова."};
 

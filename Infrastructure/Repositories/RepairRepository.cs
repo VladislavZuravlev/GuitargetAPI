@@ -16,10 +16,9 @@ public class RepairRepository: BaseRepository<Repair>, IRepairsRepository
 
     public async Task<OperationResult> AddRepairAsync(Repair newRepair)
     {
-        await _ctx.Repairs.AddAsync(newRepair);
+        var isSuccess = await base.InsertEntityAsync(newRepair);
         
-        var savedCount = await _ctx.SaveChangesAsync();
-        return savedCount > 0 
+        return isSuccess
             ? new OperationResult{ IsSuccess = true } 
             : new OperationResult{IsSuccess = false, ErrorMessage = "Не удалось сохранить данные. Пожалуйста, перезагрузите страницу и попробуйте снова."};
 
