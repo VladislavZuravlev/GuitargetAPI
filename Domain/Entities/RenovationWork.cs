@@ -14,7 +14,7 @@ public class RenovationWork
     public string Name { get; private set; } = string.Empty;
     
     [MaxLength(2000)]
-    public string Description { get; private set; } = string.Empty;
+    public string? Description { get; private set; }
     
     [Required]
     public decimal Price { get; private set; }

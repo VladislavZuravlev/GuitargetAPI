@@ -36,6 +36,8 @@ public class RepairService: IRepairsService
 
     public async Task<List<RepairDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
-        return await _repairsRepository.GetRepairsAsync(filters);
+        var includeProperties = "Client,Master,Employee,RenovationWork";
+            
+        return await _repairsRepository.GetRepairsAsync(filters, includeProperties);
     }
 }

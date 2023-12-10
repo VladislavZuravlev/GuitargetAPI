@@ -27,7 +27,7 @@ public class MasterController: ControllerBase
         return Ok(operationRes);
     }
 
-    [HttpPost("Get")]
+    [HttpGet("Get")]
     public async Task<ActionResult<List<MasterDTO>>> Get()
     {
         var masters = await _masterService.GetAsync();

@@ -6,11 +6,10 @@ public class AddRenovationWorkModel
 {
     [Required]
     [MaxLength(700)]
-    [MinLength(3)]
     public string Name { get; set; }
     
     [MaxLength(2000)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
     
     [Required]
     public decimal Price { get; set; }

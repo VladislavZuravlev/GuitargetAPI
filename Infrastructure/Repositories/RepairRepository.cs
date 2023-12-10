@@ -45,41 +45,41 @@ public class RepairRepository: BaseRepository<Repair>, IRepairsRepository
                 MasterId = r.MasterId,
                 EmployeeId = r.EmployeeId,
                 RenovationWorkId = r.RenovationWorkId,
-                Client = new ClientDTO
+                Client = r.Client != null ? new ClientDTO
                 {
                     Id = r.Client.Id,
                     PhoneNumber = r.Client.PhoneNumber,
                     Name = r.Client.Name,
                     CreateDateTime = r.Client.CreateDateTime
-                },
-                Master = new MasterDTO
+                } : null,
+                Master = r.Master != null ? new MasterDTO
                 {
                     EmployeeId = r.Master.EmployeeId,
-                    Employee = new EmployeeDTO
+                    Employee = r.Master.Employee != null ? new EmployeeDTO
                     {
-                        Id = r.Employee.Id,
-                        PhoneNumber = r.Employee.PhoneNumber,
-                        Name = r.Employee.Name,
-                        IsDisabled = r.Employee.IsDisabled
-                    },
+                        Id = r.Master.Employee.Id,
+                        PhoneNumber = r.Master.Employee.PhoneNumber,
+                        Name = r.Master.Employee.Name,
+                        IsDisabled = r.Master.Employee.IsDisabled
+                    } : null,
                     Percent = r.Master.Percent,
                     IsDisabled = r.Master.IsDisabled
-                },
-                RenovationWork = new RenovationWorkDTO
+                } : null,
+                RenovationWork = r.RenovationWork != null ? new RenovationWorkDTO
                 {
                     Id = r.RenovationWork.Id,
                     Name = r.RenovationWork.Name,
                     Description = r.RenovationWork.Description,
                     Price = r.RenovationWork.Price,
                     IsDeleted = r.RenovationWork.IsDeleted
-                },
-                Employee = new EmployeeDTO
+                } : null,
+                Employee = r.Employee != null ? new EmployeeDTO
                 {
                     Id = r.Employee.Id,
                     PhoneNumber = r.Employee.PhoneNumber,
                     Name = r.Employee.Name,
                     IsDisabled = r.Employee.IsDisabled
-                }
+                } : null
             })
             .ToList();
     }
