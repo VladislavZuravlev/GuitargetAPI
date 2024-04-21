@@ -8,13 +8,13 @@ using Domain.Entities;
 
 namespace Application.Services;
 
-public class RepairService: IRepairsService
+public class RepairRequestService: IRepairRequestsService
 {
-    private readonly IRepairsRepository _repairsRepository;
+    private readonly IRepairRequestsRepository _repairRequestsRepository;
 
-    public RepairService(IRepairsRepository repairsRepository)
+    public RepairRequestService(IRepairRequestsRepository repairRequestsRepository)
     {
-        _repairsRepository = repairsRepository;
+        _repairRequestsRepository = repairRequestsRepository;
     }
     
     
@@ -31,13 +31,13 @@ public class RepairService: IRepairsService
             return new OperationResult { IsSuccess = false, ErrorMessage = $"Не удалось создать заказ. Ошибка: {e.Message}" };
         }
 
-        return await _repairsRepository.AddRepairAsync(newRepairRequest);
+        return await _repairRequestsRepository.AddRepairAsync(newRepairRequest);
     }
 
     public async Task<List<RepairRequestDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
         var includeProperties = "Client,Master,Employee,RenovationWork";
             
-        return await _repairsRepository.GetRepairsAsync(filters, includeProperties);
+        return await _repairRequestsRepository.GetRepairsAsync(filters, includeProperties);
     }
 }

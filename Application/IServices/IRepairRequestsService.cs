@@ -5,7 +5,7 @@ using Application.Models.RequestModels.Repair;
 
 namespace Application.IServices;
 
-public interface IRepairsService
+public interface IRepairRequestsService
 {
     Task<OperationResult> AddRepairAsync(AddRepairModel model);
     Task<List<RepairRequestDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null);

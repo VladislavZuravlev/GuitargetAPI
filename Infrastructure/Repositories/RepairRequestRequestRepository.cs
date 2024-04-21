@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class RepairRequestRepository: BaseRepository<RepairRequest>, IRepairsRepository
+public class RepairRequestRequestRepository: BaseRepository<RepairRequest>, IRepairRequestsRepository
 {
-    public RepairRequestRepository(PostgresDbContext ctx): base(ctx)
+    public RepairRequestRequestRepository(PostgresDbContext ctx): base(ctx)
     {
     }
 

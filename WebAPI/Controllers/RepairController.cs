@@ -11,18 +11,18 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class RepairController: ControllerBase
 {
-    private readonly IRepairsService _repairsService;
+    private readonly IRepairRequestsService _repairRequestsService;
 
-    public RepairController(IRepairsService repairsService)
+    public RepairController(IRepairRequestsService repairRequestsService)
     {
-        _repairsService = repairsService;
+        _repairRequestsService = repairRequestsService;
     }
     
     
     [HttpGet("GetRepairs")]
     public async Task<ActionResult<List<RepairRequestDTO>>> GetRepairs()
     {
-        var repairs = await _repairsService.GetRepairsAsync();
+        var repairs = await _repairRequestsService.GetRepairsAsync();
         
         return Ok(repairs);
     }
@@ -32,7 +32,7 @@ public class RepairController: ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        var operationRes = await _repairsService.AddRepairAsync(model);
+        var operationRes = await _repairRequestsService.AddRepairAsync(model);
         
         return Ok(operationRes);
     }
