@@ -7,5 +7,5 @@ public class RenovationWorkDTO
     public string Description { get; set; }
     public decimal Price { get; set; }
     public bool IsDeleted { get; set; }
-    public List<RepairDTO> Repairs { get; set; }
+    public List<RepairRequestDTO>? Repairs { get; set; }
 }

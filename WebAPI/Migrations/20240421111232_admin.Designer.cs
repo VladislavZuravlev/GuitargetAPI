@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    partial class PostgresDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240421111232_admin")]
+    partial class admin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,6 +179,9 @@ namespace WebAPI.Migrations
                     b.Property<DateTime>("ProvisionalDateOfReceipt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("RenovationWorkId")
+                        .HasColumnType("integer");
+
                     b.Property<byte>("StatusId")
                         .HasColumnType("smallint");
 
@@ -187,7 +193,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("MasterId");
 
-                    b.ToTable("RepairRequests");
+                    b.ToTable("Repairs");
                 });
 
             modelBuilder.Entity("RenovationWorkRepairRequest", b =>

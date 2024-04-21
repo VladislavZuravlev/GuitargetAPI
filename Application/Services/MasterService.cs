@@ -20,10 +20,10 @@ public class MasterService: IMasterService
     
     public async Task<OperationResult> AddAsync(AddMasterModel model)
     {
-        EmployeeMaster newMaster;
+        Master newMaster;
         try
         {
-            newMaster = EmployeeMaster.Create(model.EmployeeId, model.Percent);
+            newMaster = Master.Create(model.EmployeeId, model.Percent);
         }
         catch (Exception e)
         {
@@ -35,6 +35,10 @@ public class MasterService: IMasterService
 
     public async Task<List<MasterDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
-        return await _masterRepository.GetAsync(filters);
+        var includeProperties = "Employee";
+        
+        var res = await _masterRepository.GetAsync(filters, includeProperties);
+
+        return res;
     }
 }

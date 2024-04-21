@@ -18,7 +18,7 @@ public class Employee
     
     public bool IsDisabled { get; private set; }
 
-    public ICollection<Repair> Repairs { get; set; } = new List<Repair>();
+    public ICollection<RepairRequest> Repairs { get; set; } = new List<RepairRequest>();
 
     
     

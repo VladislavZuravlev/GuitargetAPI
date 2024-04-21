@@ -11,8 +11,9 @@ public class PostgresDbContext: DbContext
 
     public DbSet<Client> Clients { get; set; }
     public DbSet<Employee> Employees { get; set; }
-    public DbSet<Repair> Repairs { get; set; }
-    public DbSet<EmployeeMaster> Masters { get; set; }
+    public DbSet<RepairRequest> RepairRequests { get; set; }
+    public DbSet<Master> Masters { get; set; }
+    public DbSet<Admin> Admins { get; set; }
     public DbSet<RenovationWork> RenovationWorks { get; set; }
     
     

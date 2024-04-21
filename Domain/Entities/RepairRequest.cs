@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Enums;
+using Domain.Helpers.Enums;
 
 namespace Domain.Entities;
 
-public class Repair
+public class RepairRequest
 {
     [Key]
     public int Id { get; init; }
@@ -32,7 +32,6 @@ public class Repair
     public int ClientId { get; private set; }
     public int MasterId { get; private set; }
     public int EmployeeId { get; init; }
-    public int RenovationWorkId { get; set; }
     
     [Required]
     [ForeignKey("ClientId")]
@@ -40,15 +39,14 @@ public class Repair
     
     [Required]
     [ForeignKey("MasterId")]
-    public EmployeeMaster Master { get; private set; }
+    public Master Master { get; private set; }
     
     [Required]
     [ForeignKey("EmployeeId")]
     public Employee Employee { get; private set; }
 
     [Required]
-    [ForeignKey("RenovationWorkId")]
-    public RenovationWork RenovationWork { get; set; }
+    public IEnumerable<RenovationWork> RenovationWorks { get; set; }
 
     
 
@@ -59,20 +57,18 @@ public class Repair
     
     
     
-    public Repair()
+    public RepairRequest()
     {
         
     }
 
-    private Repair(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price, int renovationWorkId)
+    private RepairRequest(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price, int renovationWorkId)
     {
         IsCase = isCase;
         StatusId = (byte)RepairStatusType.New;
         ClientId = clientId;
         EmployeeId = employeeId;
         MasterId = masterId;
-        RenovationWorkId = renovationWorkId;
-        
         
         SetProvisionalDateOfReceipt(workEndDate);
         SetInstrumentName(instrumentName);
@@ -81,9 +77,9 @@ public class Repair
     }
 
 
-    public static Repair Create(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price, int renovationWorkId)
+    public static RepairRequest Create(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price, int renovationWorkId)
     {
-        return new Repair(clientId, masterId, employeeId, workEndDate, instrumentName, isCase, description, price, renovationWorkId);
+        return new RepairRequest(clientId, masterId, employeeId, workEndDate, instrumentName, isCase, description, price, renovationWorkId);
     }
     
 

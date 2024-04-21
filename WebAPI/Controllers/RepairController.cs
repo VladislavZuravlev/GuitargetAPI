@@ -20,7 +20,7 @@ public class RepairController: ControllerBase
     
     
     [HttpGet("GetRepairs")]
-    public async Task<ActionResult<List<RepairDTO>>> GetRepairs()
+    public async Task<ActionResult<List<RepairRequestDTO>>> GetRepairs()
     {
         var repairs = await _repairsService.GetRepairsAsync();
         

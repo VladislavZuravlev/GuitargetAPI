@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
-public class EmployeeMaster
+public class Master
 {
     [Key] 
     public int EmployeeId { get; init; }
@@ -17,27 +17,27 @@ public class EmployeeMaster
     public bool IsDisabled { get; private set; }
     
 
-    public ICollection<Repair> Repairs { get; set; } = new List<Repair>();
+    public ICollection<RepairRequest> Repairs { get; set; } = new List<RepairRequest>();
 
 
 
-    public EmployeeMaster()
+    public Master()
     {
         
     }
 
-    private EmployeeMaster(int employeeId, decimal percent)
+    private Master(int employeeId, decimal percent)
     {
         EmployeeId = employeeId;
         SetPercent(percent);
     }
 
 
-    public static EmployeeMaster Create(int employeeId, decimal percent)
+    public static Master Create(int employeeId, decimal percent)
     {
         if (employeeId <= 0) throw new ArgumentException("Сотрудник не найден.");
         
-        return new EmployeeMaster(employeeId, percent);
+        return new Master(employeeId, percent);
     }
 
 

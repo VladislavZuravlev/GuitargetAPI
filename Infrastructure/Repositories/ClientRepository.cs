@@ -27,7 +27,7 @@ public class ClientRepository: BaseRepository<Client>, IClientRepository
     public async Task<List<ClientDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
     {
         var clients = await base.GetEntityAsync(filters, includeProperties, orderCollection);
-
+        
         return clients
             .Select(i => new ClientDTO
             {
@@ -35,9 +35,11 @@ public class ClientRepository: BaseRepository<Client>, IClientRepository
                 PhoneNumber = i.PhoneNumber,
                 Name = i.Name,
                 CreateDateTime = i.CreateDateTime,
-                Repairs = i.Repairs?.Select(r => new RepairDTO
+                RepairRequests = i.Repairs?.Select(r => new RepairRequestDTO
                 {
                     Id = r.Id,
+                    ClientId = r.ClientId,
+                    Client = null,
                     CreateDateTime = r.CreateDateTime,
                     ProvisionalDateOfReceipt = r.ProvisionalDateOfReceipt,
                     DateOfReceipt = r.DateOfReceipt,
@@ -49,7 +51,6 @@ public class ClientRepository: BaseRepository<Client>, IClientRepository
                     IsDeleted = r.IsDeleted,
                     MasterId = r.MasterId,
                     EmployeeId = r.EmployeeId,
-                    RenovationWorkId = r.RenovationWorkId,
                     Master = new MasterDTO
                     {
                         EmployeeId = r.Master.EmployeeId,
@@ -70,14 +71,14 @@ public class ClientRepository: BaseRepository<Client>, IClientRepository
                         Name = r.Employee.Name,
                         IsDisabled = r.Employee.IsDisabled
                     },
-                    RenovationWork = new RenovationWorkDTO
+                    RenovationWorks = r.RenovationWorks.Select(rw => new RenovationWorkDTO
                     {
-                        Id = r.RenovationWork.Id,
-                        Name = r.RenovationWork.Name,
-                        Description = r.RenovationWork.Description,
-                        Price = r.RenovationWork.Price,
-                        IsDeleted = r.RenovationWork.IsDeleted
-                    }
+                        Id = rw.Id,
+                        Name = rw.Name,
+                        Description = rw.Description,
+                        Price = rw.Price,
+                        IsDeleted = rw.IsDeleted
+                    }).ToList()
                 })
             }).ToList();
     }

@@ -6,5 +6,5 @@ public class ClientDTO
     public string PhoneNumber { get; set; }
     public string Name { get; set; }
     public DateTime CreateDateTime { get; init; }
-    public IEnumerable<RepairDTO>? Repairs { get; set; }
+    public IEnumerable<RepairRequestDTO>? RepairRequests { get; set; }
 }

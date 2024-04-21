@@ -33,7 +33,7 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
     public async Task<List<EmployeeDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
     {
         var employees = await base.GetEntityAsync(filters, includeProperties, orderCollection);
-
+        
         return employees
             .Select(i => new EmployeeDTO
             {
@@ -41,7 +41,7 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
                 PhoneNumber = i.PhoneNumber,
                 Name = i.Name,
                 IsDisabled = i.IsDisabled,
-                Repairs = i.Repairs.Select(r => new RepairDTO
+                Repairs = i.Repairs.Select(r => new RepairRequestDTO
                 {
                     Id = r.Id,
                     CreateDateTime = r.CreateDateTime,
@@ -56,7 +56,6 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
                     ClientId = r.ClientId,
                     MasterId = r.MasterId,
                     EmployeeId = r.EmployeeId,
-                    RenovationWorkId = r.RenovationWorkId,
                     Client = new ClientDTO
                     {
                         Id = r.Client.Id,
@@ -77,14 +76,14 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
                         Percent = r.Master.Percent,
                         IsDisabled = r.Master.IsDisabled
                     },
-                    RenovationWork = new RenovationWorkDTO
+                    RenovationWorks = r.RenovationWorks.Select(rw => new RenovationWorkDTO
                     {
-                        Id = r.RenovationWork.Id,
-                        Name = r.RenovationWork.Name,
-                        Description = r.RenovationWork.Description,
-                        Price = r.RenovationWork.Price,
-                        IsDeleted = r.RenovationWork.IsDeleted
-                    }
+                        Id = rw.Id,
+                        Name = rw.Name,
+                        Description = rw.Description,
+                        Price = rw.Price,
+                        IsDeleted = rw.IsDeleted
+                    }).ToList()
                 })
             })
             .ToList();

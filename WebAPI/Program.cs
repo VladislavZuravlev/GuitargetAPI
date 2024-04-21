@@ -17,7 +17,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 builder.Services.AddScoped<IRepairsService, RepairService>();
-builder.Services.AddScoped<IRepairsRepository, RepairRepository>();
+builder.Services.AddScoped<IRepairsRepository, RepairRequestRepository>();
 
 builder.Services.AddScoped<IRenovationWorkService, RenovationWorkService>();
 builder.Services.AddScoped<IRenovationWorkRepository, RenovationWorkRepository>();

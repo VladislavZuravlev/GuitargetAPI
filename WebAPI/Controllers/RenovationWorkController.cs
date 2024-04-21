@@ -17,7 +17,7 @@ public class RenovationWorkController: ControllerBase
 
 
     [HttpGet("GetRenovationWorks")]
-    public async Task<ActionResult<List<RepairDTO>>> GetRenovationWorks()
+    public async Task<ActionResult<List<RepairRequestDTO>>> GetRenovationWorks()
     {
         var renovationWorks = await _renovationWorkService.GetAsync();
         

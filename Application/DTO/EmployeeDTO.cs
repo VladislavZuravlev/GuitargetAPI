@@ -6,5 +6,5 @@ public class EmployeeDTO
     public string PhoneNumber { get; set; }
     public string Name { get; set; }
     public bool IsDisabled { get; set; }
-    public IEnumerable<RepairDTO>? Repairs { get; set; }
+    public IEnumerable<RepairRequestDTO>? Repairs { get; set; }
 }

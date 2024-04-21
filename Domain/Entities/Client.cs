@@ -19,7 +19,7 @@ public class Client
     public DateTime CreateDateTime { get; init; } = DateTime.UtcNow;
 
 
-    public ICollection<Repair> Repairs { get; set; } = new List<Repair>();
+    public ICollection<RepairRequest> Repairs { get; set; } = new List<RepairRequest>();
 
     
     

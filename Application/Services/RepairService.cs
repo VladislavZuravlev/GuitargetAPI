@@ -21,20 +21,20 @@ public class RepairService: IRepairsService
 
     public async Task<OperationResult> AddRepairAsync(AddRepairModel model)
     {
-        Repair newRepair;
+        RepairRequest newRepairRequest;
         try
         {
-            newRepair = Repair.Create(model.ClientId, model.MasterId, model.EmployeeId, model.ProvisionalDateOfReceipt, model.InstrumentName, model.IsCase, model.Description, model.Price, model.RenovationWorkId);
+            newRepairRequest = RepairRequest.Create(model.ClientId, model.MasterId, model.EmployeeId, model.ProvisionalDateOfReceipt, model.InstrumentName, model.IsCase, model.Description, model.Price, model.RenovationWorkId);
         }
         catch (Exception e)
         {
             return new OperationResult { IsSuccess = false, ErrorMessage = $"Не удалось создать заказ. Ошибка: {e.Message}" };
         }
 
-        return await _repairsRepository.AddRepairAsync(newRepair);
+        return await _repairsRepository.AddRepairAsync(newRepairRequest);
     }
 
-    public async Task<List<RepairDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
+    public async Task<List<RepairRequestDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
         var includeProperties = "Client,Master,Employee,RenovationWork";
             

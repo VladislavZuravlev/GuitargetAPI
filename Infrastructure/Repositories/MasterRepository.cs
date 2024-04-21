@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class MasterRepository: BaseRepository<EmployeeMaster>, IMasterRepository
+public class MasterRepository: BaseRepository<Master>, IMasterRepository
 {
     public MasterRepository(PostgresDbContext ctx): base(ctx)
     {
     }
 
 
-    public async Task<OperationResult> AddAsync(EmployeeMaster newMaster)
+    public async Task<OperationResult> AddAsync(Master newMaster)
     {
         var isSuccess = await base.InsertEntityAsync(newMaster);
         
@@ -36,7 +36,14 @@ public class MasterRepository: BaseRepository<EmployeeMaster>, IMasterRepository
                 Percent = i.Percent,
                 IsDisabled = i.IsDisabled,
                 RepairsCount = i.Repairs.Count,
-                Repairs = i.Repairs.Select(r => new RepairDTO
+                Employee = new EmployeeDTO
+                {
+                    Id = i.Employee.Id,
+                    PhoneNumber = i.Employee.PhoneNumber,
+                    Name = i.Employee.Name,
+                    IsDisabled = i.Employee.IsDisabled
+                },
+                Repairs = i.Repairs.Select(r => new RepairRequestDTO
                 {
                     Id = r.Id,
                     CreateDateTime = r.CreateDateTime,
@@ -51,7 +58,6 @@ public class MasterRepository: BaseRepository<EmployeeMaster>, IMasterRepository
                     ClientId = r.ClientId,
                     MasterId = r.MasterId,
                     EmployeeId = r.EmployeeId,
-                    RenovationWorkId = r.RenovationWorkId,
                     Client = new ClientDTO
                     {
                         Id = r.Client.Id,
@@ -66,14 +72,14 @@ public class MasterRepository: BaseRepository<EmployeeMaster>, IMasterRepository
                         Name = r.Employee.Name,
                         IsDisabled = r.Employee.IsDisabled
                     },
-                    RenovationWork = new RenovationWorkDTO
+                    RenovationWorks = r.RenovationWorks.Select(rw => new RenovationWorkDTO
                     {
-                        Id = r.RenovationWork.Id,
-                        Name = r.RenovationWork.Name,
-                        Description = r.RenovationWork.Description,
-                        Price = r.RenovationWork.Price,
-                        IsDeleted = r.RenovationWork.IsDeleted
-                    }
+                        Id = rw.Id,
+                        Name = rw.Name,
+                        Description = rw.Description,
+                        Price = rw.Price,
+                        IsDeleted = rw.IsDeleted
+                    }).ToList()
                 })
             })
             .ToList();

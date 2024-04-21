@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    partial class PostgresDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240421110956_replacing-the-relationship-with-many-to-many")]
+    partial class replacingtherelationshipwithmanytomany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,19 +24,6 @@ namespace WebAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Domain.Entities.Admin", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsDisabled")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("EmployeeId");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("Domain.Entities.Client", b =>
                 {
@@ -176,6 +166,9 @@ namespace WebAPI.Migrations
                     b.Property<DateTime>("ProvisionalDateOfReceipt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("RenovationWorkId")
+                        .HasColumnType("integer");
+
                     b.Property<byte>("StatusId")
                         .HasColumnType("smallint");
 
@@ -187,7 +180,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("MasterId");
 
-                    b.ToTable("RepairRequests");
+                    b.ToTable("Repairs");
                 });
 
             modelBuilder.Entity("RenovationWorkRepairRequest", b =>
@@ -203,17 +196,6 @@ namespace WebAPI.Migrations
                     b.HasIndex("RepairsId");
 
                     b.ToTable("RenovationWorkRepairRequest");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Admin", b =>
-                {
-                    b.HasOne("Domain.Entities.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Domain.Entities.Master", b =>

@@ -7,16 +7,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class RepairRepository: BaseRepository<Repair>, IRepairsRepository
+public class RepairRequestRepository: BaseRepository<RepairRequest>, IRepairsRepository
 {
-    public RepairRepository(PostgresDbContext ctx): base(ctx)
+    public RepairRequestRepository(PostgresDbContext ctx): base(ctx)
     {
     }
 
 
-    public async Task<OperationResult> AddRepairAsync(Repair newRepair)
+    public async Task<OperationResult> AddRepairAsync(RepairRequest newRepairRequest)
     {
-        var isSuccess = await base.InsertEntityAsync(newRepair);
+        var isSuccess = await base.InsertEntityAsync(newRepairRequest);
         
         return isSuccess
             ? new OperationResult{ IsSuccess = true } 
@@ -24,12 +24,11 @@ public class RepairRepository: BaseRepository<Repair>, IRepairsRepository
 
     }
 
-    public async Task<List<RepairDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
+    public async Task<List<RepairRequestDTO>> GetRepairsAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
     {
         var repairs = await base.GetEntityAsync(filters, includeProperties, orderCollection);
         
-        
-        return repairs.Select(r => new RepairDTO
+        return repairs.Select(r => new RepairRequestDTO
             {
                 Id = r.Id,
                 CreateDateTime = r.CreateDateTime,
@@ -44,7 +43,6 @@ public class RepairRepository: BaseRepository<Repair>, IRepairsRepository
                 ClientId = r.ClientId,
                 MasterId = r.MasterId,
                 EmployeeId = r.EmployeeId,
-                RenovationWorkId = r.RenovationWorkId,
                 Client = r.Client != null ? new ClientDTO
                 {
                     Id = r.Client.Id,
@@ -65,14 +63,14 @@ public class RepairRepository: BaseRepository<Repair>, IRepairsRepository
                     Percent = r.Master.Percent,
                     IsDisabled = r.Master.IsDisabled
                 } : null,
-                RenovationWork = r.RenovationWork != null ? new RenovationWorkDTO
+                RenovationWorks =  r.RenovationWorks.Select(rw => new RenovationWorkDTO
                 {
-                    Id = r.RenovationWork.Id,
-                    Name = r.RenovationWork.Name,
-                    Description = r.RenovationWork.Description,
-                    Price = r.RenovationWork.Price,
-                    IsDeleted = r.RenovationWork.IsDeleted
-                } : null,
+                    Id = rw.Id,
+                    Name = rw.Name,
+                    Description = rw.Description,
+                    Price = rw.Price,
+                    IsDeleted = rw.IsDeleted
+                }).ToList(),
                 Employee = r.Employee != null ? new EmployeeDTO
                 {
                     Id = r.Employee.Id,
