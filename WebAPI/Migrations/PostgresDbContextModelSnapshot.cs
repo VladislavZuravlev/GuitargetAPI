@@ -131,6 +131,27 @@ namespace WebAPI.Migrations
                     b.ToTable("RenovationWorks");
                 });
 
+            modelBuilder.Entity("Domain.Entities.RenovationWorkRepairRequest", b =>
+                {
+                    b.Property<int>("RepairRequestId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RenovationWorkId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("RepairRequestId", "RenovationWorkId");
+
+                    b.HasIndex("RenovationWorkId");
+
+                    b.ToTable("RenovationWorkRepairRequests");
+                });
+
             modelBuilder.Entity("Domain.Entities.RepairRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -190,21 +211,6 @@ namespace WebAPI.Migrations
                     b.ToTable("RepairRequests");
                 });
 
-            modelBuilder.Entity("RenovationWorkRepairRequest", b =>
-                {
-                    b.Property<int>("RenovationWorksId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RepairsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("RenovationWorksId", "RepairsId");
-
-                    b.HasIndex("RepairsId");
-
-                    b.ToTable("RenovationWorkRepairRequest");
-                });
-
             modelBuilder.Entity("Domain.Entities.Admin", b =>
                 {
                     b.HasOne("Domain.Entities.Employee", "Employee")
@@ -225,6 +231,25 @@ namespace WebAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RenovationWorkRepairRequest", b =>
+                {
+                    b.HasOne("Domain.Entities.RenovationWork", "RenovationWork")
+                        .WithMany("RenovationWorkRepairRequests")
+                        .HasForeignKey("RenovationWorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.RepairRequest", "RepairRequest")
+                        .WithMany("RenovationWorkRepairRequests")
+                        .HasForeignKey("RepairRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RenovationWork");
+
+                    b.Navigation("RepairRequest");
                 });
 
             modelBuilder.Entity("Domain.Entities.RepairRequest", b =>
@@ -254,21 +279,6 @@ namespace WebAPI.Migrations
                     b.Navigation("Master");
                 });
 
-            modelBuilder.Entity("RenovationWorkRepairRequest", b =>
-                {
-                    b.HasOne("Domain.Entities.RenovationWork", null)
-                        .WithMany()
-                        .HasForeignKey("RenovationWorksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.RepairRequest", null)
-                        .WithMany()
-                        .HasForeignKey("RepairsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Entities.Client", b =>
                 {
                     b.Navigation("Repairs");
@@ -282,6 +292,16 @@ namespace WebAPI.Migrations
             modelBuilder.Entity("Domain.Entities.Master", b =>
                 {
                     b.Navigation("Repairs");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RenovationWork", b =>
+                {
+                    b.Navigation("RenovationWorkRepairRequests");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RepairRequest", b =>
+                {
+                    b.Navigation("RenovationWorkRepairRequests");
                 });
 #pragma warning restore 612, 618
         }

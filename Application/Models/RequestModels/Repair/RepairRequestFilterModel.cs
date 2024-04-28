@@ -1,6 +1,6 @@
 ﻿namespace Application.Models.RequestModels.Repair;
 
-public class RepairFilterModel
+public class RepairRequestFilterModel
 {
     public DateTime? ProvisionalDateOfReceipt  { get; set; }
     public string? InstrumentName { get; set; }
@@ -10,5 +10,4 @@ public class RepairFilterModel
     public string? ClientPhone { get; set; }
     public int? MasterId { get; set; }
     public int? EmployeeId { get; init; }
-    public int? RenovationWorkId { get; set; }
 }

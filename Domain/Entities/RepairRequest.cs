@@ -46,7 +46,7 @@ public class RepairRequest
     public Employee Employee { get; private set; }
 
     [Required]
-    public IEnumerable<RenovationWork> RenovationWorks { get; set; }
+    public ICollection<RenovationWorkRepairRequest> RenovationWorkRepairRequests { get; set; }
 
     
 
@@ -62,7 +62,7 @@ public class RepairRequest
         
     }
 
-    private RepairRequest(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price, int renovationWorkId)
+    private RepairRequest(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price)
     {
         IsCase = isCase;
         StatusId = (byte)RepairStatusType.New;
@@ -77,9 +77,9 @@ public class RepairRequest
     }
 
 
-    public static RepairRequest Create(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price, int renovationWorkId)
+    public static RepairRequest Create(int clientId, int masterId, int employeeId, DateTime workEndDate, string instrumentName, bool isCase, string description, decimal price)
     {
-        return new RepairRequest(clientId, masterId, employeeId, workEndDate, instrumentName, isCase, description, price, renovationWorkId);
+        return new RepairRequest(clientId, masterId, employeeId, workEndDate, instrumentName, isCase, description, price);
     }
     
 

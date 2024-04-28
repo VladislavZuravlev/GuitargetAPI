@@ -30,63 +30,11 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
 
     }
 
-    public async Task<List<EmployeeDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
+    public async Task<List<Employee>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
     {
-        var employees = await base.GetEntityAsync(filters, includeProperties, orderCollection);
+        return await base.GetEntityAsync(filters, includeProperties, orderCollection);
         
-        return employees
-            .Select(i => new EmployeeDTO
-            {
-                Id = i.Id,
-                PhoneNumber = i.PhoneNumber,
-                Name = i.Name,
-                IsDisabled = i.IsDisabled,
-                Repairs = i.Repairs.Select(r => new RepairRequestDTO
-                {
-                    Id = r.Id,
-                    CreateDateTime = r.CreateDateTime,
-                    ProvisionalDateOfReceipt = r.ProvisionalDateOfReceipt,
-                    DateOfReceipt = r.DateOfReceipt,
-                    InstrumentName = r.InstrumentName,
-                    IsCase = r.IsCase,
-                    Description = r.Description,
-                    Price = r.Price,
-                    StatusId = r.StatusId,
-                    IsDeleted = r.IsDeleted,
-                    ClientId = r.ClientId,
-                    MasterId = r.MasterId,
-                    EmployeeId = r.EmployeeId,
-                    Client = new ClientDTO
-                    {
-                        Id = r.Client.Id,
-                        PhoneNumber = r.Client.PhoneNumber,
-                        Name = r.Client.Name,
-                        CreateDateTime = r.Client.CreateDateTime
-                    },
-                    Master = new MasterDTO
-                    {
-                        EmployeeId = r.Master.EmployeeId,
-                        Employee = new EmployeeDTO
-                        {
-                            Id = r.Employee.Id,
-                            PhoneNumber = r.Employee.PhoneNumber,
-                            Name = r.Employee.Name,
-                            IsDisabled = r.Employee.IsDisabled
-                        },
-                        Percent = r.Master.Percent,
-                        IsDisabled = r.Master.IsDisabled
-                    },
-                    RenovationWorks = r.RenovationWorks.Select(rw => new RenovationWorkDTO
-                    {
-                        Id = rw.Id,
-                        Name = rw.Name,
-                        Description = rw.Description,
-                        Price = rw.Price,
-                        IsDeleted = rw.IsDeleted
-                    }).ToList()
-                })
-            })
-            .ToList();
+        
     }
     
    

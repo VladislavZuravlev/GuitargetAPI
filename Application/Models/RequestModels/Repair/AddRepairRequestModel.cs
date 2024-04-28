@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Application.DTO;
 
 namespace Application.Models.RequestModels.Repair;
 
-public class AddRepairModel
+public class AddRepairRequestModel
 {
     [Required]
     public DateTime ProvisionalDateOfReceipt  { get; set; }
@@ -29,6 +30,6 @@ public class AddRepairModel
     [Required]
     public int EmployeeId { get; init; }
     
-    [Required]
-    public int RenovationWorkId { get; set; }
+    [Required] 
+    public IEnumerable<int> RenovationWorkIds { get; set; }
 }

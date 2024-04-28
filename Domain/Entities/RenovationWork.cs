@@ -21,7 +21,7 @@ public class RenovationWork
     
     public bool IsDeleted { get; private set; }
 
-    public ICollection<RepairRequest> Repairs { get; set; } = new List<RepairRequest>();
+    public ICollection<RenovationWorkRepairRequest> RenovationWorkRepairRequests { get; set; } = new List<RenovationWorkRepairRequest>();
 
 
     public RenovationWork()

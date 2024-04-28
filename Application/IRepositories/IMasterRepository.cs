@@ -1,5 +1,4 @@
-﻿using Application.DTO;
-using Application.Models;
+﻿using Application.Models;
 using Domain.Entities;
 
 namespace Application.IRepositories;
@@ -7,5 +6,5 @@ namespace Application.IRepositories;
 public interface IMasterRepository
 {
     Task<OperationResult> AddAsync(Master newMaster);
-    Task<List<MasterDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null);
+    Task<List<Master>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null);
 }

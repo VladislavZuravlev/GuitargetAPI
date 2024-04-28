@@ -1,4 +1,5 @@
-﻿using Domain.Helpers;
+﻿using Domain.Entities;
+using Domain.Helpers;
 using Domain.Helpers.Enums;
 
 namespace Application.DTO;
@@ -23,6 +24,6 @@ public class RepairRequestDTO
     public ClientDTO? Client { get; set; }
     public MasterDTO? Master { get; set; }
     public EmployeeDTO? Employee { get; set; }
-    public List<RenovationWorkDTO>? RenovationWorks { get; set; }
+    public List<RenovationWorkRepairRequestDTO>? RenovationWorkRepairRequests { get; set; }
 
 }

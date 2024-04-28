@@ -22,17 +22,8 @@ public class RenovationWorkRepository: BaseRepository<RenovationWork>, IRenovati
 
     }
 
-    public async Task<List<RenovationWorkDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
+    public async Task<List<RenovationWork>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null, string? includeProperties = null, Dictionary<string, string>? orderCollection = null)
     {
-        var renovationWorks = await base.GetEntityAsync(filters, includeProperties, orderCollection);
-
-        return renovationWorks.Select(i => new RenovationWorkDTO
-        {
-            Id = i.Id,
-            Name = i.Name,
-            Description = i.Description,
-            Price = i.Price,
-            IsDeleted = i.IsDeleted
-        }).ToList();
+        return await base.GetEntityAsync(filters, includeProperties, orderCollection);
     }
 }

@@ -15,6 +15,7 @@ public class PostgresDbContext: DbContext
     public DbSet<Master> Masters { get; set; }
     public DbSet<Admin> Admins { get; set; }
     public DbSet<RenovationWork> RenovationWorks { get; set; }
+    public DbSet<RenovationWorkRepairRequest> RenovationWorkRepairRequests { get; set; }
     
     
     
@@ -29,7 +30,6 @@ public class PostgresDbContext: DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        
         options.UseNpgsql("Host=localhost;Port=5432;Database=Guitarget;Username=postgres;Password=Moscow74!;", b => b.MigrationsAssembly("WebAPI"));
     }
     

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "0YGqTJgr5VJC9IXywx+fsfhgt0Wh6Iw8x6TLF/+3ebh6jtrzYBjjWE2LvxkY5C12UsIelDdlw4eq3gGeWbHwJA==",
+  "dgSpecHash": "9jXjAhDxAp+ChPkv09pu/Yzr8SIAHB1S+6nQLQly3/PtA6fmC3gxVOj8ffTXmKmULkYlQ+vWAce5VByMeXSBFg==",
   "success": true,
   "projectFilePath": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Domain\\Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\valdi\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.11\\microsoft.entityframeworkcore.abstractions.7.0.11.nupkg.sha512"
+  ],
   "logs": []
 }
