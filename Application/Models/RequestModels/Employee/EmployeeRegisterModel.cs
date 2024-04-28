@@ -2,7 +2,7 @@
 
 namespace Application.Models.RequestModels.Employee;
 
-public class AddEmployeeModel
+public class EmployeeRegisterModel
 {
     [MaxLength(18)]
     [MinLength(18)]
@@ -12,4 +12,8 @@ public class AddEmployeeModel
     [MaxLength(300)]
     [Required]
     public string Name { get; set; } = string.Empty;
+
+    [MinLength(8)]
+    [Required]
+    public string Password { get; set; } = string.Empty;
 }

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "KtRpZMZlRnmdftSFIO2eUkxiqlQGKLM7tGnUtByZB4F+VC1hOa2SIWjS8OEA65hyFk9AJfXs9UGPZIv5wgChXw==",
+  "dgSpecHash": "uz6UGLDtLFXxS3QVZ2/qFMWqVWMIYXHp7/TliepAWRprGgNM6m684wGIS1+k3025xT6oNP5Yb8bDi4HyzJDE4w==",
   "success": true,
   "projectFilePath": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\WebAPI\\WebAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\valdi\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.3\\microsoft.aspnetcore.openapi.7.0.3.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",

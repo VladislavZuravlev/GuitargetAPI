@@ -6,6 +6,8 @@ namespace Application.IServices;
 
 public interface IEmployeeService
 {
-    Task<OperationResult> AddAsync(AddEmployeeModel model);
+    Task<OperationResult> AddAsync(EmployeeRegisterModel registerModel);
+    Task<OperationResult> RegisterAsync(EmployeeRegisterModel registerModel);
+    Task<string> LoginAsync(LoginModel model);
     Task<List<EmployeeDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
 }

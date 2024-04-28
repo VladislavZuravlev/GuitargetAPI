@@ -15,6 +15,8 @@ public class Employee
     [MaxLength(300)]
     [Required]
     public string Name { get; private set; } = string.Empty;
+
+    public string PasswordHash { get; private set; }
     
     public bool IsDisabled { get; private set; }
 
@@ -28,16 +30,16 @@ public class Employee
         
     }
     
-    private Employee(string name, string phoneNumber)
+    private Employee(string name, string phoneNumber, string passwordHash)
     {
         SetName(name);
         SetPhoneNUmber(phoneNumber);
         IsDisabled = false;
     }
 
-    public static Employee Create(string name, string phoneNumber)
+    public static Employee Create(string name, string phoneNumber, string passwordHash)
     {
-        return new Employee(name, phoneNumber);
+        return new Employee(name, phoneNumber, passwordHash);
     }
     
     private void SetPhoneNUmber(string phone)

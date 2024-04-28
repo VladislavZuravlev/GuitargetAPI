@@ -1,4 +1,5 @@
 ﻿using Application.DTO;
+using Application.Helpers;
 using Application.IRepositories;
 using Application.IServices;
 using Application.Models;
@@ -19,12 +20,12 @@ public class EmployeeService: IEmployeeService
     
     
     
-    public async Task<OperationResult> AddAsync(AddEmployeeModel model)
+    public async Task<OperationResult> AddAsync(EmployeeRegisterModel registerModel)
     {
         Employee newEmployee;
         try
         {
-            newEmployee = Employee.Create(model.Name, model.PhoneNumber);
+            newEmployee = Employee.Create(registerModel.Name, registerModel.PhoneNumber, "Test1234");
         }
         catch (Exception e)
         {
@@ -33,6 +34,31 @@ public class EmployeeService: IEmployeeService
         }
 
         return await _employeeRepository.AddAsync(newEmployee);
+    }
+
+    public async Task<string> LoginAsync(LoginModel model)
+    {
+        var employee = await _employeeRepository.GetByNumber(model.PhoneNumber);
+        
+        var res = PasswordHasher.Verify(model.Password, employee?.PasswordHash ?? string.Empty);
+        
+        
+        
+        return "";
+    }
+
+    public async Task<OperationResult> RegisterAsync(EmployeeRegisterModel registerModel)
+    {
+        try
+        {
+            var newEmployee = Employee.Create(registerModel.Name, registerModel.PhoneNumber, PasswordHasher.Generate(registerModel.Password));
+            return await _employeeRepository.AddAsync(newEmployee);
+        }
+        catch (Exception e)
+        {
+            return new OperationResult
+                { IsSuccess = false, ErrorMessage = $"Не удалось зарегистрироваться. Ошибка: {e.Message}." };
+        }
     }
 
     public async Task<List<EmployeeDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null)

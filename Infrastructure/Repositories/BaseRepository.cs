@@ -43,7 +43,6 @@ where TEntity: class
     
     public async Task<bool> InsertEntityAsync(TEntity entity)
     {
-        // Проверить добавление с детьми.
         int savedCount;
 
         try

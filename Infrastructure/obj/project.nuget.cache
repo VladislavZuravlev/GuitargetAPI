@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "VsTDNWUZ8EuuJiEBvpYhTULx/QPYGli2wLdTWQbZMdPNttGqOR48HZXaleKcIAvEeDHMhIzMJrNV2Y64007Quw==",
+  "dgSpecHash": "/MO7JqSfWK4Egmrr66okxZk/sbwRWDtp5l6NmzSDdkC6L0T1O6lnpqMgSIkKnYV8dCDLnX1Ra9EUqerJQSFcsg==",
   "success": true,
   "projectFilePath": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\valdi\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",
     "C:\\Users\\valdi\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.11\\microsoft.entityframeworkcore.abstractions.7.0.11.nupkg.sha512",
