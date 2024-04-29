@@ -2,10 +2,12 @@
 using Application.IServices;
 using Application.Models;
 using Application.Models.RequestModels.RenovationWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
+[Authorize]
 public class RenovationWorkController: ControllerBase
 {
     private readonly IRenovationWorkService _renovationWorkService;
@@ -15,7 +17,7 @@ public class RenovationWorkController: ControllerBase
         _renovationWorkService = renovationWorkService;
     }
 
-
+    
     [HttpGet("GetRenovationWorks")]
     public async Task<ActionResult<List<RepairRequestDTO>>> GetRenovationWorks()
     {

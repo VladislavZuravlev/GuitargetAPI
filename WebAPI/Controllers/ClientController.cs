@@ -2,10 +2,12 @@
 using Application.IServices;
 using Application.Models;
 using Application.Models.RequestModels.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class ClientController: ControllerBase
@@ -18,7 +20,7 @@ public class ClientController: ControllerBase
         _clientService = clientService;
     }
 
-
+    
     [HttpPost("Add")]
     public async Task<ActionResult<OperationResult>> Add([FromQuery] AddClientModel model)
     {

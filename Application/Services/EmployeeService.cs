@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using Application.Helpers;
+using Application.Helpers.JWT;
 using Application.IRepositories;
 using Application.IServices;
 using Application.Models;
@@ -11,10 +12,14 @@ namespace Application.Services;
 public class EmployeeService: IEmployeeService
 {
     private readonly IEmployeeRepository _employeeRepository;
+    private readonly IPasswordHasher _passwordHasher;
+    private readonly IJwtProvider _jwtProvider;
 
-    public EmployeeService(IEmployeeRepository employeeRepository)
+    public EmployeeService(IEmployeeRepository employeeRepository, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
     {
         _employeeRepository = employeeRepository;
+        _passwordHasher = passwordHasher;
+        _jwtProvider = jwtProvider;
     }
     
     
@@ -40,18 +45,17 @@ public class EmployeeService: IEmployeeService
     {
         var employee = await _employeeRepository.GetByNumber(model.PhoneNumber);
         
-        var res = PasswordHasher.Verify(model.Password, employee?.PasswordHash ?? string.Empty);
+        var isPasswordValid = _passwordHasher.Verify(model.Password, employee?.PasswordHash ?? string.Empty);
         
-        
-        
-        return "";
+        return isPasswordValid ? _jwtProvider.GenerateToken(employee) : string.Empty;
     }
 
     public async Task<OperationResult> RegisterAsync(EmployeeRegisterModel registerModel)
     {
+        var hash = _passwordHasher.Generate(registerModel.Password); 
         try
         {
-            var newEmployee = Employee.Create(registerModel.Name, registerModel.PhoneNumber, PasswordHasher.Generate(registerModel.Password));
+            var newEmployee = Employee.Create(registerModel.Name, registerModel.PhoneNumber, hash);
             return await _employeeRepository.AddAsync(newEmployee);
         }
         catch (Exception e)

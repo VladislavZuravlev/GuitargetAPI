@@ -1,38 +1,79 @@
+using System.Text;
+using Application.Helpers;
+using Application.Helpers.JWT;
 using Application.IRepositories;
 using Application.IServices;
 using Application.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
 // Add services to the container.
-
-builder.Services.AddControllers();
+services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
+services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
+services.AddScoped<IClientService, ClientService>();
+services.AddScoped<IClientRepository, ClientRepository>();
 
-builder.Services.AddScoped<IRepairRequestsService, RepairRequestService>();
-builder.Services.AddScoped<IRepairRequestsRepository, RepairRequestRepository>();
+services.AddScoped<IRepairRequestsService, RepairRequestService>();
+services.AddScoped<IRepairRequestsRepository, RepairRequestRepository>();
 
-builder.Services.AddScoped<IRenovationWorkService, RenovationWorkService>();
-builder.Services.AddScoped<IRenovationWorkRepository, RenovationWorkRepository>();
+services.AddScoped<IRenovationWorkService, RenovationWorkService>();
+services.AddScoped<IRenovationWorkRepository, RenovationWorkRepository>();
 
-builder.Services.AddScoped<IMasterService, MasterService>();
-builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+services.AddScoped<IMasterService, MasterService>();
+services.AddScoped<IMasterRepository, MasterRepository>();
 
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+services.AddScoped<IEmployeeService, EmployeeService>();
+services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
+services.AddScoped<IPasswordHasher, PasswordHasher>();
+services.AddScoped<IJwtProvider, JwtProvider>();
 
+services.AddDbContext<PostgresDbContext>();
 
+services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtOptions:SecretKey"]))
+        };
 
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                context.Token = context.Request.Cookies["Guitarget"];
+                return Task.CompletedTask;
+            }
+        };
+    });
 
-builder.Services.AddDbContext<PostgresDbContext>();
+// services.AddAuthorization(options =>
+// {
+//     options.AddPolicy("AddminPolicy", policy =>
+//     {
+//         
+//     });
+// });
 
 var app = builder.Build();
 
@@ -44,6 +85,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always,
+    Secure = CookieSecurePolicy.Always
+});
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

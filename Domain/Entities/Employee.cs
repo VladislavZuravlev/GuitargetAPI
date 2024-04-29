@@ -34,6 +34,7 @@ public class Employee
     {
         SetName(name);
         SetPhoneNUmber(phoneNumber);
+        PasswordHash = passwordHash;
         IsDisabled = false;
     }
 

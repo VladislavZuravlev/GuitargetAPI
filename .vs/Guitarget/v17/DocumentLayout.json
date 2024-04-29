@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{B05ADA6C-0201-4667-B843-B9690E23A1C5}|Application\\Application.csproj|c:\\users\\valdi\\riderprojects\\guitarget\\application\\application.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{B05ADA6C-0201-4667-B843-B9690E23A1C5}|Application\\Application.csproj|solutionrelative:application\\application.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C6E3C60-9DA6-40D8-87EC-9C9DA5602EB5}|Infrastructure\\Infrastructure.csproj|c:\\users\\valdi\\riderprojects\\guitarget\\infrastructure\\infrastructure.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{1C6E3C60-9DA6-40D8-87EC-9C9DA5602EB5}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\infrastructure.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D2C9BDC5-C7AB-4788-949D-51F83181F43B}|Domain\\Domain.csproj|c:\\users\\valdi\\riderprojects\\guitarget\\domain\\domain.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{D2C9BDC5-C7AB-4788-949D-51F83181F43B}|Domain\\Domain.csproj|solutionrelative:domain\\domain.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{36C25310-B101-42F9-8D0B-53883D0D5FBF}|WebAPI\\WebAPI.csproj|c:\\users\\valdi\\riderprojects\\guitarget\\webapi\\webapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{36C25310-B101-42F9-8D0B-53883D0D5FBF}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\webapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,54 +18,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "WebAPI",
-              "DocumentMoniker": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\WebAPI\\WebAPI.csproj",
-              "RelativeDocumentMoniker": "WebAPI\\WebAPI.csproj",
-              "ToolTip": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\WebAPI\\WebAPI.csproj",
-              "RelativeToolTip": "WebAPI\\WebAPI.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-04-28T14:34:04.033Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Infrastructure",
-              "DocumentMoniker": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Infrastructure\\Infrastructure.csproj",
-              "RelativeDocumentMoniker": "Infrastructure\\Infrastructure.csproj",
-              "ToolTip": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Infrastructure\\Infrastructure.csproj",
-              "RelativeToolTip": "Infrastructure\\Infrastructure.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-04-28T14:33:38.049Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Domain",
-              "DocumentMoniker": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Domain\\Domain.csproj",
-              "RelativeDocumentMoniker": "Domain\\Domain.csproj",
-              "ToolTip": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Domain\\Domain.csproj",
-              "RelativeToolTip": "Domain\\Domain.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-04-28T14:33:04.694Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Application",
-              "DocumentMoniker": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Application\\Application.csproj",
-              "RelativeDocumentMoniker": "Application\\Application.csproj",
-              "ToolTip": "C:\\Users\\valdi\\RiderProjects\\Guitarget\\Application\\Application.csproj",
-              "RelativeToolTip": "Application\\Application.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-04-28T14:32:30.083Z",
-              "EditorCaption": ""
             }
           ]
         }

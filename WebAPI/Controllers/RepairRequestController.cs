@@ -3,10 +3,12 @@ using Application.IServices;
 using Application.Models;
 using Application.Models.RequestModels.RenovationWork;
 using Application.Models.RequestModels.Repair;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class RepairRequestController: ControllerBase
