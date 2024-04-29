@@ -1,4 +1,7 @@
-﻿namespace Application.DTO;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Application.DTO;
 
 public class ClientDTO
 {

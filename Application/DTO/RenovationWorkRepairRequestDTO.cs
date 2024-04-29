@@ -1,4 +1,6 @@
-﻿namespace Application.DTO;
+﻿using System;
+
+namespace Application.DTO;
 
 public class RenovationWorkRepairRequestDTO
 {

@@ -1,4 +1,6 @@
-﻿namespace Application.Models.RequestModels.Repair;
+﻿using System;
+
+namespace Application.Models.RequestModels.Repair;
 
 public class RepairRequestFilterModel
 {

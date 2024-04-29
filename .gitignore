@@ -38,6 +38,7 @@ _UpgradeReport_Files/
 ###############
 # Directories #
 ###############
+.gitignore
 bin/
 obj/
 TestResults/

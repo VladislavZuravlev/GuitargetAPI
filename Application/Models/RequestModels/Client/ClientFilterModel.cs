@@ -1,4 +1,6 @@
-﻿namespace Application.Models.RequestModels.Client;
+﻿using System;
+
+namespace Application.Models.RequestModels.Client;
 
 public class ClientFilterModel
 {

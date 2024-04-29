@@ -1,4 +1,6 @@
-﻿namespace Application.DTO;
+﻿using System.Collections.Generic;
+
+namespace Application.DTO;
 
 public class EmployeeDTO
 {
