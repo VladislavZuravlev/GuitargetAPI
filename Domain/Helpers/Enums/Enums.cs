@@ -14,3 +14,26 @@ public enum RepairStatusType: byte
     [Display(Name = "Выдан")]
     Issued = 3
 }
+
+public enum RoleType : byte
+{
+    [Display(Name = "Админ")]
+    Admin = 1,
+    [Display(Name = "Мастер")]
+    Master = 2
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

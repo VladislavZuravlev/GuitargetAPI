@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Entities;
 
-public class EmployeeRoles
+[PrimaryKey(nameof(EmployeeId), nameof(RoleId))]
+public class EmployeeRole
 {
     [Required]
     public int EmployeeId { get; init; }

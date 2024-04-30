@@ -24,7 +24,7 @@ public class Employee
 
     public ICollection<RepairRequest> Repairs { get; set; } = new List<RepairRequest>();
 
-    public ICollection<EmployeeRoles> Roles { get; set; } = new List<EmployeeRoles>();
+    public ICollection<EmployeeRole> Roles { get; set; } = new List<EmployeeRole>();
 
     
     public Employee()

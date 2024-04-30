@@ -17,6 +17,7 @@ public class PostgresDbContext: DbContext
     public DbSet<Admin> Admins { get; set; }
     public DbSet<RenovationWork> RenovationWorks { get; set; }
     public DbSet<RenovationWorkRepairRequest> RenovationWorkRepairRequests { get; set; }
+    public DbSet<EmployeeRole> EmployeeRoles { get; set; }
     
     
     

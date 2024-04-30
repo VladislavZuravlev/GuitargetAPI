@@ -4,15 +4,17 @@ using Application.DTO;
 using Application.IServices;
 using Application.Models;
 using Application.Models.RequestModels.Employee;
+using Domain.Helpers.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Helpers;
 
 namespace WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+[CustomAuthorizationFilter]
 public class EmployeeController: ControllerBase
 {
     private readonly IEmployeeService _employeeService;
@@ -50,7 +52,6 @@ public class EmployeeController: ControllerBase
         return Ok(res);
     }
     
-    [Authorize]
     [HttpGet("Get")]
     public async Task<ActionResult<List<OperationResult>>> Get()
     {
@@ -59,7 +60,7 @@ public class EmployeeController: ControllerBase
         return Ok(employees);
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpPost("Add")]
     public async Task<ActionResult<EmployeeDTO>> Add([FromQuery]EmployeeRegisterModel registerModel)
     {

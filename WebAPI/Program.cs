@@ -47,7 +47,12 @@ services.AddScoped<IJwtProvider, JwtProvider>();
 
 services.AddDbContext<PostgresDbContext>();
 
-services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
         options.RequireHttpsMetadata = false;
@@ -72,13 +77,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// services.AddAuthorization(options =>
-// {
-//     options.AddPolicy("AddminPolicy", policy =>
-//     {
-//         
-//     });
-// });
+//services.AddAuthorization(policy => policy.AddPolicy(CustomAuthorizationFilter));
 
 var app = builder.Build();
 
@@ -99,7 +98,6 @@ app.UseCookiePolicy(new CookiePolicyOptions
 });
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
