@@ -22,9 +22,9 @@ public class Employee
     
     public bool IsDisabled { get; private set; }
 
-    public ICollection<RepairRequest> Repairs { get; set; } = new List<RepairRequest>();
+    public ICollection<RepairRequest?> Repairs { get; set; }
 
-    public ICollection<EmployeeRole> Roles { get; set; } = new List<EmployeeRole>();
+    public ICollection<EmployeeRole?> Roles { get; set; }
 
     
     public Employee()

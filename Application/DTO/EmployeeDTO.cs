@@ -9,4 +9,5 @@ public class EmployeeDTO
     public string Name { get; set; }
     public bool IsDisabled { get; set; }
     public IEnumerable<RepairRequestDTO>? Repairs { get; set; }
+    public IEnumerable<EmployeeRoleDTO>? Roles { get; set; }
 }

@@ -40,9 +40,22 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
         return await base.GetEntityAsync(filters, includeProperties, orderCollection);
     }
 
-    public async Task<Employee?> GetByNumber(string phone) =>
+    public async Task<Employee?> GetByNumberAsync(string phone) =>
         await _ctx.Employees.FirstOrDefaultAsync(e => e.PhoneNumber == phone);
 
-    public async Task<Employee?> GetById(int id) => 
-        await _ctx.Employees.FirstOrDefaultAsync(e => e.Id == id);
+    public async Task<Employee?> GetByIdAsync(int id) => 
+        await _ctx.Employees.Include(e => e.Roles).FirstOrDefaultAsync(e => e.Id == id);
+
+    public Employee? GetById(int id) => 
+         _ctx.Employees.Include(e => e.Roles).FirstOrDefault(e => e.Id == id);
+    
+    public bool CheckEmployeeRoles(int id, byte[] roles)
+    {
+        var employee = _ctx.Employees.Include(e => e.Roles).FirstOrDefault(e => e.Id == id);
+        
+        if (employee == null || employee.IsDisabled || employee.Roles.Count == 0) return false;
+
+        return employee.Roles.Any(r => roles.Any(i => i == r.RoleId));
+    }
+
 }

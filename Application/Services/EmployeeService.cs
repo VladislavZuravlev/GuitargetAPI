@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.DTO;
+﻿using Application.DTO;
 using Application.Helpers;
 using Application.Helpers.JWT;
 using Application.IRepositories;
@@ -10,6 +6,7 @@ using Application.IServices;
 using Application.Models;
 using Application.Models.RequestModels.Employee;
 using Domain.Entities;
+using Domain.Helpers.Enums;
 
 namespace Application.Services;
 
@@ -25,10 +22,8 @@ public class EmployeeService: IEmployeeService
         _passwordHasher = passwordHasher;
         _jwtProvider = jwtProvider;
     }
-    
-    
-    
-    
+
+
     public async Task<OperationResult> AddAsync(EmployeeRegisterModel registerModel)
     {
         Employee newEmployee;
@@ -47,7 +42,7 @@ public class EmployeeService: IEmployeeService
 
     public async Task<string> LoginAsync(LoginModel model)
     {
-        var employee = await _employeeRepository.GetByNumber(model.PhoneNumber);
+        var employee = await _employeeRepository.GetByNumberAsync(model.PhoneNumber);
         
         var isPasswordValid = _passwordHasher.Verify(model.Password, employee?.PasswordHash ?? string.Empty);
         
@@ -56,7 +51,11 @@ public class EmployeeService: IEmployeeService
 
     public async Task<OperationResult> RegisterAsync(EmployeeRegisterModel registerModel)
     {
-        var hash = _passwordHasher.Generate(registerModel.Password); 
+        var hash = _passwordHasher.Generate(registerModel.Password);
+
+        var employee = await _employeeRepository.GetByNumberAsync(registerModel.PhoneNumber);
+        if (employee != null) return new OperationResult { IsSuccess = false, ErrorMessage = $"Не удалось зарегистрироваться. Ошибка: Этот номер уже занят." };
+        
         try
         {
             var newEmployee = Employee.Create(registerModel.Name, registerModel.PhoneNumber, hash);
@@ -80,7 +79,12 @@ public class EmployeeService: IEmployeeService
                 PhoneNumber = i.PhoneNumber,
                 Name = i.Name,
                 IsDisabled = i.IsDisabled,
-                Repairs = i.Repairs.Select(r => new RepairRequestDTO
+                Roles = i.Roles == null ? null : i.Roles.Select(rol => new EmployeeRoleDTO
+                {
+                    EmployeeId = rol.EmployeeId,
+                    RoleId = rol.RoleId
+                }),
+                Repairs = i.Repairs == null ? null : i.Repairs.Select(r => new RepairRequestDTO
                 {
                     Id = r.Id,
                     CreateDateTime = r.CreateDateTime,
@@ -133,5 +137,34 @@ public class EmployeeService: IEmployeeService
                 })
             })
             .ToList();
+    }
+
+    public async Task<EmployeeDTO?> GetById(int id)
+    {
+        var employee = await _employeeRepository.GetByIdAsync(id);
+
+        return employee == null ? null : new EmployeeDTO
+        {
+            Id = employee.Id,
+            PhoneNumber = employee.PhoneNumber,
+            Name = employee.Name,
+            IsDisabled = employee.IsDisabled,
+            Roles = employee.Roles == null ? null : employee.Roles.Select(rol => new EmployeeRoleDTO
+            {
+                EmployeeId = rol.EmployeeId,
+                RoleId = rol.RoleId
+            })
+        };
+    }
+
+    public bool CheckEmployeeRoles(int id, RoleType[] roles)
+    {
+        Employee? employee = null;
+
+        Task.Run(async () => employee = await _employeeRepository.GetByIdAsync(id)).Wait();
+
+        if (employee == null || employee.IsDisabled || employee.Roles.Count == 0) return false;
+
+        return employee.Roles.Any(r => roles.Any(i => (byte)i == r.RoleId));
     }
 }
