@@ -4,12 +4,14 @@ using Application.DTO;
 using Application.IServices;
 using Application.Models;
 using Application.Models.RequestModels.Master;
+using Domain.Helpers.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Helpers;
 
 namespace WebAPI.Controllers;
 
-[Authorize]
+[EmployeeAuthorizeApi]
 [Route("api/[controller]")]
 [ApiController]
 public class MasterController: ControllerBase

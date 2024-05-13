@@ -18,7 +18,9 @@ public class EmployeeAuthorizeApiAttribute : Attribute, IAuthorizationFilter
     
     public void OnAuthorization(AuthorizationFilterContext context)
     {
+        var token = context.HttpContext.Request.Headers["Guitarget"];
         var isAuthenticated = context.HttpContext.User.Identity?.IsAuthenticated ?? false;
+        var cookies = context.HttpContext.Request.Cookies;
         
         if (!isAuthenticated)
         {

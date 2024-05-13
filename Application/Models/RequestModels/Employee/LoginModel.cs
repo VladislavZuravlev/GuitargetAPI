@@ -9,7 +9,7 @@ public class LoginModel
     [Required]
     public string PhoneNumber { get; set; } = string.Empty;
     
-    [MinLength(8)]
+    [MinLength(7)]
     [Required]
     public string Password { get; set; } = string.Empty;
 }

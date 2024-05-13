@@ -5,12 +5,14 @@ using Application.IServices;
 using Application.Models;
 using Application.Models.RequestModels.RenovationWork;
 using Application.Models.RequestModels.Repair;
+using Domain.Helpers.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Helpers;
 
 namespace WebAPI.Controllers;
 
-[Authorize]
+[EmployeeAuthorizeApi(roles: new [] { RoleType.Admin})]
 [Route("api/[controller]")]
 [ApiController]
 public class RepairRequestController: ControllerBase
@@ -24,7 +26,7 @@ public class RepairRequestController: ControllerBase
     
     
     [HttpGet("GetRepairs")]
-    public async Task<ActionResult<List<RepairRequestDTO>>> GetRepairs()
+    public async Task<ActionResult<IEnumerable<RepairRequestDTO>>> GetRepairs()
     {
         var repairs = await _repairRequestsService.GetRepairRequestsAsync();
         
@@ -32,7 +34,7 @@ public class RepairRequestController: ControllerBase
     }
 
     [HttpPost("AddRepair")]
-    public async Task<ActionResult<OperationResult>> AddRepair([FromQuery] AddRepairRequestModel requestModel)
+    public async Task<ActionResult<OperationResult>> AddRepair([FromBody] AddRepairRequestModel requestModel)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 

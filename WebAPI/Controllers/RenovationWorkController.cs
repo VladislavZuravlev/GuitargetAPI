@@ -6,10 +6,11 @@ using Application.Models;
 using Application.Models.RequestModels.RenovationWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Helpers;
 
 namespace WebAPI.Controllers;
 
-[Authorize]
+[EmployeeAuthorizeApi]
 public class RenovationWorkController: ControllerBase
 {
     private readonly IRenovationWorkService _renovationWorkService;

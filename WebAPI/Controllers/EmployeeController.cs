@@ -28,7 +28,7 @@ public class EmployeeController: ControllerBase
     }
     
     [HttpPost("Add")]
-    public async Task<ActionResult<EmployeeDTO>> Add([FromQuery]EmployeeRegisterModel registerModel)
+    public async Task<ActionResult<EmployeeDTO>> Add([FromBody]EmployeeRegisterModel registerModel)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 

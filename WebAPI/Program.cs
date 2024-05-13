@@ -71,7 +71,7 @@ services.AddAuthentication(x =>
         {
             OnMessageReceived = context =>
             {
-                context.Token = context.Request.Cookies["Guitarget"];
+                context.Token = context.Request.Headers["Guitarget"];
                 return Task.CompletedTask;
             }
         };
@@ -97,9 +97,17 @@ app.UseCookiePolicy(new CookiePolicyOptions
     Secure = CookieSecurePolicy.Always
 });
 
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(x =>
+{
+    x.WithHeaders().AllowAnyHeader().AllowCredentials();
+    x.WithOrigins("http://localhost:3000");
+    x.WithMethods().AllowAnyMethod();
+});
 
 app.Run();

@@ -6,10 +6,11 @@ using Application.Models;
 using Application.Models.RequestModels.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Helpers;
 
 namespace WebAPI.Controllers;
 
-[Authorize]
+[EmployeeAuthorizeApi]
 [Route("api/[controller]")]
 [ApiController]
 public class ClientController: ControllerBase

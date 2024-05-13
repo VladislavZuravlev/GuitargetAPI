@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
+
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController: ControllerBase
@@ -15,25 +16,21 @@ public class AuthController: ControllerBase
         _employeeService = employeeService;
     }
     
-    [HttpGet("Login")]
-    public async Task<ActionResult> Login([FromQuery]LoginModel model)
+    [HttpPost("Login")]
+    public async Task<ActionResult> Login([FromBody] LoginModel model)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
         var token = await _employeeService.LoginAsync(model);
 
-        if (string.IsNullOrEmpty(token))
-        {
-            ModelState.AddModelError("this", "Вы ввели неверный логин или пароль.");
-            return BadRequest(ModelState);
-        }
+        if (!string.IsNullOrEmpty(token)) return Ok(token);
         
-        HttpContext.Response.Cookies.Append("Guitarget", token);
-        return Ok();
+        ModelState.AddModelError("this", "Вы ввели неверный логин или пароль.");
+        return BadRequest(ModelState);
     }
     
     [HttpPost("Register")]
-    public async Task<ActionResult> Register([FromQuery]EmployeeRegisterModel registerModel)
+    public async Task<ActionResult> Register([FromBody]EmployeeRegisterModel registerModel)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
