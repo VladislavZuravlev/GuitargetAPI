@@ -6,13 +6,12 @@ using Application.Models;
 using Application.Models.RequestModels.RenovationWork;
 using Application.Models.RequestModels.Repair;
 using Domain.Helpers.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Helpers;
 
 namespace WebAPI.Controllers;
 
-[EmployeeAuthorizeApi(roles: new [] { RoleType.Admin})]
+[EmployeeAuthorizeApi(roles: new [] { RoleType.Admin, RoleType.Master})]
 [Route("api/[controller]")]
 [ApiController]
 public class RepairRequestController: ControllerBase

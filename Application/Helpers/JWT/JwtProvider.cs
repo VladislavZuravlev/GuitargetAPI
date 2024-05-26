@@ -1,7 +1,5 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using Domain.Entities;
 using Microsoft.Extensions.Options;
@@ -20,7 +18,18 @@ public class JwtProvider: IJwtProvider
 
     public string GenerateToken(Employee employee)
     {
-        Claim[] claims = new[] { new Claim("userId", employee.Id.ToString()) };
+        var rolesArr = employee.Roles.Select(r => $"{r.RoleId},");
+        var roleIdsStr = string.Empty;
+        if (rolesArr != null && rolesArr.Any())
+        {
+            roleIdsStr = String.Concat(rolesArr);
+        }
+        
+        Claim[] claims = new[]
+        {
+            new Claim("userId", employee.Id.ToString()),
+            new Claim("roleIds", roleIdsStr)
+        };
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), 

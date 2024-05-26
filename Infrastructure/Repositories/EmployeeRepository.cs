@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Dynamic.Core;
-using System.Threading.Tasks;
-using Application.DTO;
-using Application.IRepositories;
+﻿using Application.IRepositories;
 using Application.Models;
 using Domain.Entities;
 using Infrastructure.Contexts;
-using Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
@@ -41,7 +35,7 @@ public class EmployeeRepository: BaseRepository<Employee>, IEmployeeRepository
     }
 
     public async Task<Employee?> GetByNumberAsync(string phone) =>
-        await _ctx.Employees.FirstOrDefaultAsync(e => e.PhoneNumber == phone);
+        await _ctx.Employees.Include(e => e.Roles).FirstOrDefaultAsync(e => e.PhoneNumber == phone);
 
     public async Task<Employee?> GetByIdAsync(int id) => 
         await _ctx.Employees.Include(e => e.Roles).FirstOrDefaultAsync(e => e.Id == id);
