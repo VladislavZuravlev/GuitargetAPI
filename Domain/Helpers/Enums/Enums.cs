@@ -7,12 +7,18 @@ public enum RepairStatusType: byte
 {
     [Display(Name = "Новый")]
     New = 0,
+    
     [Display(Name = "В работе")]    
     InProgress = 1,
+    
     [Display(Name = "Готов")]
     Done = 2,
+    
     [Display(Name = "Выдан")]
-    Issued = 3
+    Issued = 3,
+    
+    [Display(Name = "Отменён")]
+    Cancel = 4
 }
 
 public enum RoleType : byte

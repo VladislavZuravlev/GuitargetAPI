@@ -11,4 +11,5 @@ public interface IRepairRequestsService
 {
     Task<OperationResult> AddRepairRequestAsync(AddRepairRequestModel requestModel);
     Task<List<RepairRequestDTO>> GetRepairRequestsAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
+    Task<RepairRequestDTO?> GetById(int id);
 }

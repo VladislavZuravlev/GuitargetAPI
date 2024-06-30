@@ -114,4 +114,72 @@ public class RepairRequestService: IRepairRequestsService
             })
             .ToList();
     }
+
+    public async Task<RepairRequestDTO?> GetById(int id)
+    {
+        var repairRequest = await _repairRequestsRepository.GetById(id);
+
+        if (repairRequest == null) return null;
+        
+        var dto = new RepairRequestDTO
+        {
+            Id = repairRequest.Id,
+            CreateDateTime = repairRequest.CreateDateTime,
+            ProvisionalDateOfReceipt = repairRequest.ProvisionalDateOfReceipt,
+            DateOfReceipt = repairRequest.DateOfReceipt,
+            InstrumentName = repairRequest.InstrumentName,
+            IsCase = repairRequest.IsCase,
+            Description = repairRequest.Description,
+            Price = repairRequest.Price,
+            StatusId = repairRequest.StatusId,
+            IsDeleted = repairRequest.IsDeleted,
+            ClientId = repairRequest.ClientId,
+            MasterId = repairRequest.MasterId,
+            EmployeeId = repairRequest.EmployeeId,
+            Client = new ClientDTO
+            {
+                Id = repairRequest.Client.Id,
+                PhoneNumber = repairRequest.Client.PhoneNumber,
+                Name = repairRequest.Client.Name,
+                CreateDateTime = repairRequest.Client.CreateDateTime
+            },
+            Master = new MasterDTO
+            {
+                EmployeeId = repairRequest.Master.EmployeeId,
+                Employee = new EmployeeDTO
+                {
+                    Id = repairRequest.Master.Employee.Id,
+                    PhoneNumber = repairRequest.Master.Employee.PhoneNumber,
+                    Name = repairRequest.Master.Employee.Name,
+                    IsDisabled = repairRequest.Master.Employee.IsDisabled
+                },
+                Percent = repairRequest.Master.Percent,
+                IsDisabled = repairRequest.Master.IsDisabled
+            },
+            Employee = new EmployeeDTO
+            {
+                Id = repairRequest.Employee.Id,
+                PhoneNumber = repairRequest.Employee.PhoneNumber,
+                Name = repairRequest.Employee.Name,
+                IsDisabled = repairRequest.Employee.IsDisabled
+            },
+            RenovationWorkRepairRequests = repairRequest.RenovationWorkRepairRequests.Select(i =>
+                new RenovationWorkRepairRequestDTO
+                {
+                    RepairRequestId = i.RepairRequestId,
+                    RenovationWorkId = i.RenovationWorkId,
+                    DateAdded = i.DateAdded,
+                    Amount = i.Amount,
+                    RenovationWork = new RenovationWorkDTO
+                    {
+                        Id = i.RenovationWork.Id,
+                        Name = i.RenovationWork.Name,
+                        Description = i.RenovationWork.Description,
+                        Price = i.RenovationWork.Price,
+                        IsDeleted = i.RenovationWork.IsDeleted
+                    }
+                }).ToList()
+        };
+        return dto;
+    }
 }

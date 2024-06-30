@@ -31,4 +31,16 @@ public class RepairRequestRepository: BaseRepository<RepairRequest>, IRepairRequ
     {
         return await base.GetEntityAsync(filters, includeProperties, orderCollection);
     }
+
+    public async Task<RepairRequest?> GetById(int id)
+    {
+        return await _ctx.RepairRequests
+                        .Include(rr => rr.Client)
+                        .Include(rr => rr.Master)
+                        .Include(rr => rr.Master.Employee)
+                        .Include(rr => rr.Employee)
+                        .Include(rr => rr.RenovationWorkRepairRequests)
+                        .Include("RenovationWorkRepairRequests.RenovationWork")
+                        .FirstOrDefaultAsync(rr => rr.Id == id);
+    }
 }
