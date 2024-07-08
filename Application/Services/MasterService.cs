@@ -86,13 +86,13 @@ public class MasterService: IMasterService
                         Name = r.Employee.Name,
                         IsDisabled = r.Employee.IsDisabled
                     },
-                    RenovationWorkRepairRequests = r.RenovationWorkRepairRequests.Select(i => new RenovationWorkRepairRequestDTO
+                    RepairRequestServices = r.RenovationWorkRepairRequests.Select(i => new RepairRequestServiceDTO
                     {
                         RepairRequestId = i.RepairRequestId,
                         RenovationWorkId = i.RenovationWorkId,
                         DateAdded = i.DateAdded,
                         Amount = i.Amount,
-                        RenovationWork = new RenovationWorkDTO
+                        Service = new ServiceDTO
                         {
                             Id = i.RenovationWork.Id,
                             Name = i.RenovationWork.Name,

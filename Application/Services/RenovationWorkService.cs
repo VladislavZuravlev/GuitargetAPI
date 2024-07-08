@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.DTO;
+﻿using Application.DTO;
 using Application.IRepositories;
 using Application.IServices;
 using Application.Models;
-using Application.Models.RequestModels.RenovationWork;
+using Application.Models.RequestModels.Service;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -21,7 +17,7 @@ public class RenovationWorkService: IRenovationWorkService
     }
 
 
-    public async Task<OperationResult> AddAsync(AddRenovationWorkModel model)
+    public async Task<OperationResult> AddAsync(AddServiceModel model)
     {
         RenovationWork newRenovationWork;
 
@@ -37,19 +33,19 @@ public class RenovationWorkService: IRenovationWorkService
         return await _renovationWorkRepository.AddAsync(newRenovationWork);
     }
 
-    public async Task<List<RenovationWorkDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
+    public async Task<List<ServiceDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null)
     {
         var includeProperties = "RenovationWorkRepairRequests,RenovationWorkRepairRequests.RepairRequest,RenovationWorkRepairRequests.RepairRequest.Client,RenovationWorkRepairRequests.RepairRequest.Master,RenovationWorkRepairRequests.RepairRequest.Employee,RenovationWorkRepairRequests.RepairRequest.Master.Employee";
         
         var renovationWorks = await _renovationWorkRepository.GetAsync(filters);
-        return renovationWorks.Select(i => new RenovationWorkDTO
+        return renovationWorks.Select(i => new ServiceDTO
         {
             Id = i.Id,
             Name = i.Name,
             Description = i.Description,
             Price = i.Price,
             IsDeleted = i.IsDeleted,
-            RenovationWorkRepairRequests = i.RenovationWorkRepairRequests.Select(i => new RenovationWorkRepairRequestDTO
+            RepairRequestServices = i.RenovationWorkRepairRequests.Select(i => new RepairRequestServiceDTO
             {
                 RepairRequestId = i.RepairRequestId,
                 RenovationWorkId = i.RenovationWorkId,

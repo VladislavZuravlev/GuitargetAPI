@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.Models.RequestModels.RenovationWork;
+namespace Application.Models.RequestModels.Service;
 
-public class AddRenovationWorkModel
+public class AddServiceModel
 {
     [Required]
     [MaxLength(700)]

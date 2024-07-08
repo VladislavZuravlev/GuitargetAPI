@@ -26,6 +26,6 @@ public class RepairRequestDTO
     public ClientDTO? Client { get; set; }
     public MasterDTO? Master { get; set; }
     public EmployeeDTO? Employee { get; set; }
-    public List<RenovationWorkRepairRequestDTO>? RenovationWorkRepairRequests { get; set; }
+    public List<RepairRequestServiceDTO>? RepairRequestServices { get; set; }
 
 }

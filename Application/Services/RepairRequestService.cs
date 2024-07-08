@@ -89,13 +89,13 @@ public class RepairRequestService: IRepairRequestsService
                     Percent = r.Master.Percent,
                     IsDisabled = r.Master.IsDisabled
                 } : null,
-                RenovationWorkRepairRequests = r.RenovationWorkRepairRequests.Select(i => new RenovationWorkRepairRequestDTO
+                RepairRequestServices = r.RenovationWorkRepairRequests.Select(i => new RepairRequestServiceDTO
                 {
                     RepairRequestId = i.RepairRequestId,
                     RenovationWorkId = i.RenovationWorkId,
                     DateAdded = i.DateAdded,
                     Amount = i.Amount,
-                    RenovationWork = new RenovationWorkDTO
+                    Service = new ServiceDTO
                     {
                         Id = i.RenovationWork.Id,
                         Name = i.RenovationWork.Name,
@@ -163,14 +163,14 @@ public class RepairRequestService: IRepairRequestsService
                 Name = repairRequest.Employee.Name,
                 IsDisabled = repairRequest.Employee.IsDisabled
             },
-            RenovationWorkRepairRequests = repairRequest.RenovationWorkRepairRequests.Select(i =>
-                new RenovationWorkRepairRequestDTO
+            RepairRequestServices = repairRequest.RenovationWorkRepairRequests.Select(i =>
+                new RepairRequestServiceDTO
                 {
                     RepairRequestId = i.RepairRequestId,
                     RenovationWorkId = i.RenovationWorkId,
                     DateAdded = i.DateAdded,
                     Amount = i.Amount,
-                    RenovationWork = new RenovationWorkDTO
+                    Service = new ServiceDTO
                     {
                         Id = i.RenovationWork.Id,
                         Name = i.RenovationWork.Name,

@@ -2,7 +2,7 @@
 
 namespace Application.DTO;
 
-public class RenovationWorkRepairRequestDTO
+public class RepairRequestServiceDTO
 {
     public int RepairRequestId { get; set; }
 
@@ -14,5 +14,5 @@ public class RenovationWorkRepairRequestDTO
     
     public RepairRequestDTO? RepairRequest { get; set; }
     
-    public RenovationWorkDTO? RenovationWork { get; set; }
+    public ServiceDTO? Service { get; set; }
 }
