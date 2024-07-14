@@ -21,7 +21,7 @@ public class RenovationWork
     [Required]
     public decimal Price { get; private set; }
     
-    public bool IsDeleted { get; private set; }
+    public bool IsDeleted { get; set; }
 
     public ICollection<RenovationWorkRepairRequest> RenovationWorkRepairRequests { get; set; } = new List<RenovationWorkRepairRequest>();
 

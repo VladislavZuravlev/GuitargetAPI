@@ -19,10 +19,22 @@ public class ServiceController: ControllerBase
     }
 
     
-    [HttpGet("GetServices")]
-    public async Task<ActionResult<List<ServiceDTO>>> GetServices()
+    [HttpGet("GetAllServices")]
+    public async Task<ActionResult<List<ServiceDTO>>> GetAllServices()
     {
         var services = await _renovationWorkService.GetAsync();
+        
+        return Ok(services);
+    }
+
+    [HttpGet("GetCurrentServices")]
+    public async Task<ActionResult<List<ServiceDTO>>> GetCurrentServices()
+    {
+        var filters = new List<Tuple<string, string, object>>
+        {
+            new Tuple<string, string, object>("IsDeleted", "==", false)
+        };
+        var services = await _renovationWorkService.GetAsync(filters);
         
         return Ok(services);
     }
@@ -35,5 +47,21 @@ public class ServiceController: ControllerBase
         var operationRes = await _renovationWorkService.AddAsync(model);
         
         return Ok(operationRes);
+    }
+
+    [HttpDelete("RemoveService")]
+    public async Task<ActionResult> RemoveService(int id)
+    {
+        var res = await _renovationWorkService.RemoveAsync(id);
+
+        return res.IsSuccess ? Ok() : BadRequest(res.ErrorMessage);
+    }
+    
+    [HttpPost("RestoreService")]
+    public async Task<ActionResult> RestoreService(int id)
+    {
+        var res = await _renovationWorkService.RestoreAsync(id);
+        
+        return res.IsSuccess ? Ok() : BadRequest(res.ErrorMessage);
     }
 }

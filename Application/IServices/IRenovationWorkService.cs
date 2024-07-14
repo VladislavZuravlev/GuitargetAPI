@@ -8,4 +8,6 @@ public interface IRenovationWorkService
 {
     Task<OperationResult> AddAsync(AddServiceModel model);
     Task<List<ServiceDTO>> GetAsync(IEnumerable<Tuple<string, string, object>>? filters = null);
+    Task<OperationResult> RemoveAsync(int id);
+    Task<OperationResult> RestoreAsync(int id);
 }
